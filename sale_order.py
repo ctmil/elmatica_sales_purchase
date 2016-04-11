@@ -31,9 +31,9 @@ class sale_order(models.Model):
                 raise exceptions.ValidationError(_('Order should be confirmed in order to create POs'))
 
             customer_location = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_stock_customer')])[0]
-            pricelist = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
+            #pricelist = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
             location_ref = int(customer_location.value_reference.split(',')[-1])
-            pricelist_ref = int(pricelist.value_reference.split(',')[-1])
+            #pricelist_ref = int(pricelist.value_reference.split(',')[-1])
 
             # print "CUSTLOC", customer_location, location_ref, type(location_ref)
 
@@ -46,7 +46,7 @@ class sale_order(models.Model):
 	                  #'name': sale.name,
         	          'partner_id': sale.selected_supplier.id,
                 	  'location_id': location_ref,
-	                  'pricelist_id': pricelist_ref,
+	                  'pricelist_id': sale.selected_supplier.property_product_pricelist_purchase.id,
         	          'invoice_method': 'manual',
                 	  'dest_address_id': sale.partner_shipping_id.id,
 			  'sale_order_id': sale.id,
