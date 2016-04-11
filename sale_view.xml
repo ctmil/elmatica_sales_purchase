@@ -22,6 +22,11 @@
         	      <field name="requested_delivery_date" />
 	              <field name="purchase_orders" />
         	  </field>
+		<page string="Other Information" position="after">
+			<page string="Purchase Orders">
+				<field name="purchase_ids" readonly="1"/>
+			</page>
+		</page>
             </field>
         </record>
 

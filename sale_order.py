@@ -6,7 +6,6 @@ import datetime
 
 _logger = logging.getLogger(__name__)
 
-
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
@@ -37,21 +36,22 @@ class sale_order(models.Model):
             pricelist_ref = int(pricelist.value_reference.split(',')[-1])
 
             # print "CUSTLOC", customer_location, location_ref, type(location_ref)
-            po = {'company_id': sale.company_id.id,
-                  'currency_id': sale.currency_id.id,
-                  #'name': sale.name,
-                  'partner_id': sale.selected_supplier.id,
-                  'location_id': location_ref,
-                  'pricelist_id': pricelist_ref,
-                  'invoice_method': 'manual',
-                  'dest_address_id': sale.partner_shipping_id.id,
-                  }
-            po_lines = []
 
             lines = self.env['sale.order.line'].search([('order_id','=',sale.id)])
             index = 0
 	    partner_id = None
             for line in lines:
+                po = {'company_id': sale.company_id.id,
+                	  'currency_id': sale.currency_id.id,
+	                  #'name': sale.name,
+        	          'partner_id': sale.selected_supplier.id,
+                	  'location_id': location_ref,
+	                  'pricelist_id': pricelist_ref,
+        	          'invoice_method': 'manual',
+                	  'dest_address_id': sale.partner_shipping_id.id,
+			  'sale_order_id': sale.id,
+	                  }
+                po_lines = []
 		if line.product_id.product_tmpl_id.is_pack:
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
@@ -63,12 +63,12 @@ class sale_order(models.Model):
 					partner_id = line_pack.product_name.supplier_id.id
 					break
 		else:
-			line_product = line.product_id
+			line_product = line.product_id.id
 				
 
        	        cost_unit = line.unit_cost
 
-               	po_lines.append((0, 0, {'name': line.name,
+               	vals_line = {'name': line.name,
                         'product_uom': line.product_uom.id,
                         'sale_order': sale.id,
                         'price_unit': cost_unit,
@@ -78,17 +78,27 @@ class sale_order(models.Model):
                         'company_id': line.company_id.id,
                         'product_id': line_product,
                         'date_planned': sale.requested_delivery_date, # Must be updated later.
-                  }))
+                  }
       	        index += 1
 
 	        po['order_line'] = po_lines
 		if not po['partner_id']:
 			po['partner_id'] = partner_id
         	created_po = self.env['purchase.order'].create(po)
+		vals_line['order_id'] = created_po.id
+		created_line = self.env['purchase.order.line'].create(vals_line)
 	        required_shipping_date = created_po.calculate_shipping_date()
         	for line in created_po.order_line:
 	                line.date_planned = required_shipping_date
 
                 _logger.info('Created purchase order %s / %s', created_po, created_po.name)
 
+
+    purchase_ids = fields.One2many(comodel_name='purchase.order',inverse_name='sale_order_id')
+
+    @api.multi
+    def _get_purchase_order(self):
+        po_line_model = self.env['purchase.order.line']
+        for order in self:
+		order.purchase_orders = None
 
