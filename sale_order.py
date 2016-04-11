@@ -66,7 +66,7 @@ class sale_order(models.Model):
 			line_product = line.product_id
 				
 
-       	        cost_unit = sale.find_cost(line_product, line.delay, line.product_uom_qty)
+       	        cost_unit = line.unit_cost
 
                	po_lines.append((0, 0, {'name': line.name,
                         'product_uom': line.product_uom.id,
@@ -90,28 +90,5 @@ class sale_order(models.Model):
 	                line.date_planned = required_shipping_date
 
                 _logger.info('Created purchase order %s / %s', created_po, created_po.name)
-
-    def find_cost(self, product, leadtime, qty):
-	cost = 0
-	"""
-        self.ensure_one()
-        sso = self.super_order_id
-
-        sso_lines = self.env['super.sales.line'].search([('super_order_id','=',sso.id),
-            ('product_id','=',product.id)])\
-
-        matching_sso_lines = [ x for x in sso_lines if not round(abs(x.product_qty - qty)) and x.delay==leadtime ]
-
-        if len(matching_sso_lines) == 1:
-            cost = matching_sso_lines[0].price_unit
-        elif len(sso_lines)>0:
-            raise exceptions.ValidationError(_('Unable find line in %s for product %s with leadtime %d and quantity %d.') %
-                          (sso.name, product.name, leadtime, qty)
-                          )
-        else:
-            _logger.info('Unable to determine SSO line: %s - %s' % (self.name, product.name))
-            cost = product.standard_price
-	"""
-        return cost
 
 
