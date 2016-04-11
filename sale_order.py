@@ -102,3 +102,10 @@ class sale_order(models.Model):
         for order in self:
 		order.purchase_orders = None
 
+    @api.one
+    def _has_purchase_order(self):
+	if self.purchase_ids:
+		self.has_purchase_order = True
+	else:
+		self.has_purchase_order = False
+	
