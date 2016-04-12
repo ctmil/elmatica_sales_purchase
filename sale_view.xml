@@ -35,7 +35,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="elmatica_sales_customizations.view_order_form_freight_price"/>
             <field name="arch" type="xml">
-		<field name="additional_days" position="after">
+		<field name="calculated_leadtime" position="before">
 			    <field name="shipping_days" readonly="1"/>
                 </field>
             </field>
