@@ -41,3 +41,9 @@ class sale_order_line(models.Model):
         def _compute_calculated_leadtime(self):
 		old_leadtime = self.super(sale_order_line,self)._compute_calculated_leadtime()
 		self.calculated_leadtime = old_leadtime + self.shipping_days
+
+	@api.one
+	def _compute_shipping_days(self):
+		self.shipping_days = self.order_id.shipping_days
+
+	shipping_days = fields.Integer(string='Shipping days',compute=_compute_shipping_days)

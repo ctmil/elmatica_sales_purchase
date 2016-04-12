@@ -30,6 +30,17 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_order_form_sales_purchase_custom">
+            <field name="name">sale.order.sales.purchase.shipping</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="elmatica_sales_customizations.view_order_form_freight_price"/>
+            <field name="arch" type="xml">
+		<field name="additional_days" position="after">
+			    <field name="shipping_days" readonly="1"/>
+                </field>
+            </field>
+	</record>
+
     </data>
 </openerp>
 
