@@ -1,6 +1,6 @@
 from openerp import api, models, exceptions, fields,  _
 import openerp.addons.decimal_precision as dp
-
+from datetime import date
 import logging
 import datetime
 
@@ -61,13 +61,16 @@ class sale_order(models.Model):
 				    if line_pack.product_name.product_tmpl_id.ntty_id != '':
 					line_product = line_pack.product_name.id
 					partner_id = line_pack.product_name.supplier_id.id
+       	        			cost_unit = line.unit_cost
 					break
 		else:
 			line_product = line.product_id.id
-				
+			pricelist = sale.selected_supplier.property_product_pricelist_purchase
+			return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
+			 context = {'uom': 1, 'date': str(date.today())})
+			cost_unit = return_pricelist[pricelist.id]
 
-       	        cost_unit = line.unit_cost
-
+		
                	vals_line = {'name': line.name,
                         'product_uom': line.product_uom.id,
                         'sale_order': sale.id,
