@@ -62,6 +62,8 @@ class sale_order(models.Model):
 					line_product = line_pack.product_name.id
 					partner_id = line_pack.product_name.supplier_id.id
        	        			cost_unit = line.unit_cost
+					if pricelist.currency_id.id != sale.currency_id.id:
+						cost_unit = cost_unit / line.quoted_rate
 					break
 		else:
 			line_product = line.product_id.id
@@ -69,8 +71,6 @@ class sale_order(models.Model):
 			return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
 			 context = {'uom': 1, 'date': str(date.today())})
 			cost_unit = return_pricelist[pricelist.id]
-			if pricelist.currency_id.id != sale.currency_id.id:
-				cost_unit = cost_unit / line.quoted_rate
 
 		
                	vals_line = {'name': line.name,
