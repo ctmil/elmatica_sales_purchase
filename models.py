@@ -38,12 +38,26 @@ class sale_order_line(models.Model):
 	_inherit = 'sale.order.line'
 
 	@api.one
-        def _compute_calculated_leadtime(self):
-		old_leadtime = self.super(sale_order_line,self)._compute_calculated_leadtime()
-		self.calculated_leadtime = old_leadtime + self.shipping_days
+	def _compute_calculated_leadtime_20(self):
+		if self.product_id.product_tmpl_id.ntty_id and self.product_id.product_tmpl_id.ntty_id != '':
+			self.calculated_leadtime = self.buffer_days + self.leadtime + self.additional_days + self.shipping_days
+		else:
+			return_value = 0
+			if self.product_id.is_pack:
+				for product in self.product_id.wk_product_pack:
+					if product.product_name.product_tmpl_id.ntty_id and product.product_name.product_tmpl_id.ntty_id != '':
+						return_value = return_value + self.pcb_leadtime + self.shipping_days
+					else:
+						return_value = return_value + product.product_name.sale_delay + self.shipping_days
+			else:
+				return_value = self.product_id.sale_delay + self.shipping_days
+			self.calculated_leadtime = return_value
+
 
 	@api.one
 	def _compute_shipping_days(self):
 		self.shipping_days = self.order_id.shipping_days
 
 	shipping_days = fields.Integer(string='Shipping days',compute=_compute_shipping_days)
+        calculated_leadtime = fields.Integer(string='Calculated Leadtime',compute=_compute_calculated_leadtime_20)
+
