@@ -68,6 +68,10 @@ class sale_order(models.Model):
 					n_index = n_index + 1
 				confirmed_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
 					- datetime.timedelta(days=(line.calculated_leadtime - line.manufacturing_leadtime))
+				if confirmed_date.weekday() == 5:
+					confirmed_date = confirmed_date + datetime.timedelta(days=2)
+				if confirmed_date.weekday() == 6:
+					confirmed_date = confirmed_date + datetime.timedelta(days=1)
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
