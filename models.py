@@ -49,9 +49,10 @@ class sale_order_line(models.Model):
 						return_value = return_value + self.pcb_leadtime 
 					else:
 						return_value = return_value + product.product_name.sale_delay 
+				self.calculated_leadtime = return_value
 			else:
 				return_value = self.product_id.sale_delay 
-			self.calculated_leadtime = return_value + self.shipping_days
+				self.calculated_leadtime = return_value + self.shipping_days
 
 
 	@api.one
