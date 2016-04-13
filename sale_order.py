@@ -3,6 +3,7 @@ import openerp.addons.decimal_precision as dp
 from datetime import date
 import logging
 import datetime
+from datetime import timedelta
 
 _logger = logging.getLogger(__name__)
 
@@ -40,6 +41,7 @@ class sale_order(models.Model):
             lines = self.env['sale.order.line'].search([('order_id','=',sale.id)])
             index = 0
 	    partner_id = None
+	    confirmed_date = None
             for line in lines:
                 po = {'company_id': sale.company_id.id,
                 	  'currency_id': sale.selected_supplier.property_product_pricelist_purchase.currency_id.id,
@@ -53,6 +55,19 @@ class sale_order(models.Model):
 	                  }
                 po_lines = []
 		if line.product_id.product_tmpl_id.is_pack:
+			if not confirmed_date:
+				d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
+				n_index = 0
+				d_index_date = d_requested_date
+				n_check_top = line.calculated_leadtime - line.manufacturing_leadtime
+				n_additional_days = 0
+				while n_index < (n_check_top):
+					d_index_date = d_index_date - datetime.timedelta(days=n_index)
+					if d_index_date.weekday() in [5,6]:
+						n_additional_days = n_additional_days + 1
+					n_index = n_index + 1
+				confirmed_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
+					- datetime.timedelta(days=(line.calculated_leadtime - line.manufacturing_leadtime))
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
@@ -90,6 +105,8 @@ class sale_order(models.Model):
 	        po['order_line'] = po_lines
 		if not po['partner_id']:
 			po['partner_id'] = partner_id
+		if confirmed_date:
+			po['confirmed_date'] = confirmed_date
         	created_po = self.env['purchase.order'].create(po)
 		vals_line['order_id'] = created_po.id
 		created_line = self.env['purchase.order.line'].create(vals_line)
