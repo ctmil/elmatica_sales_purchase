@@ -62,6 +62,7 @@ class sale_order(models.Model):
 					line_product = line_pack.product_name.id
 					partner_id = line_pack.product_name.supplier_id.id
        	        			cost_unit = line.unit_cost
+					pricelist = sale.selected_supplier.property_product_pricelist_purchase
 					if pricelist.currency_id.id != sale.currency_id.id:
 						cost_unit = cost_unit / line.quoted_rate
 					break
