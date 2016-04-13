@@ -46,12 +46,12 @@ class sale_order_line(models.Model):
 			if self.product_id.is_pack:
 				for product in self.product_id.wk_product_pack:
 					if product.product_name.product_tmpl_id.ntty_id and product.product_name.product_tmpl_id.ntty_id != '':
-						return_value = return_value + self.pcb_leadtime + self.shipping_days
+						return_value = return_value + self.pcb_leadtime 
 					else:
-						return_value = return_value + product.product_name.sale_delay + self.shipping_days
+						return_value = return_value + product.product_name.sale_delay 
 			else:
-				return_value = self.product_id.sale_delay + self.shipping_days
-			self.calculated_leadtime = return_value
+				return_value = self.product_id.sale_delay 
+			self.calculated_leadtime = return_value + self.shipping_days
 
 
 	@api.one
