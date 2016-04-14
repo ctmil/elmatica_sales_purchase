@@ -105,7 +105,8 @@ class sale_order(models.Model):
                         'date_planned': sale.requested_delivery_date, # Must be updated later.
                   }
       	        index += 1
-
+		po['buffer_days'] = line.buffer_days
+		#po['hub_days'] = ((line.calculated_leadtime - line.manufacturing_leadtime) - line.buffer_days) - line.additional_days)
 	        po['order_line'] = po_lines
 		if not po['partner_id']:
 			po['partner_id'] = partner_id
