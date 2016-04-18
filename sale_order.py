@@ -41,7 +41,7 @@ class sale_order(models.Model):
             lines = self.env['sale.order.line'].search([('order_id','=',sale.id)])
             index = 0
 	    partner_id = None
-	    confirmed_date = None
+	    requested_delivery = None
             for line in lines:
                 po = {'company_id': sale.company_id.id,
                 	  'currency_id': sale.selected_supplier.property_product_pricelist_purchase.currency_id.id,
@@ -55,7 +55,7 @@ class sale_order(models.Model):
 	                  }
                 po_lines = []
 		if line.product_id.product_tmpl_id.is_pack:
-			if not confirmed_date:
+			if not requested_delivery:
 				d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
 				n_index = 0
 				d_index_date = d_requested_date
@@ -66,12 +66,12 @@ class sale_order(models.Model):
 					if d_index_date.weekday() in [5,6]:
 						n_additional_days = n_additional_days + 1
 					n_index = n_index + 1
-				confirmed_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
+				requested_delivery = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
 					- datetime.timedelta(days=(line.calculated_leadtime - line.manufacturing_leadtime))
-				if confirmed_date.weekday() == 5:
-					confirmed_date = confirmed_date + datetime.timedelta(days=2)
-				if confirmed_date.weekday() == 6:
-					confirmed_date = confirmed_date + datetime.timedelta(days=1)
+				if requested_delivery.weekday() == 5:
+					requested_delivery = requested_delivery + datetime.timedelta(days=2)
+				if requested_delivery.weekday() == 6:
+					requested_delivery = requested_delivery + datetime.timedelta(days=1)
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
@@ -110,8 +110,8 @@ class sale_order(models.Model):
 	        po['order_line'] = po_lines
 		if not po['partner_id']:
 			po['partner_id'] = partner_id
-		if confirmed_date:
-			po['confirmed_date'] = confirmed_date
+		if requested_delivery:
+			po['requested_delivery'] = requested_delivery
         	created_po = self.env['purchase.order'].create(po)
 		vals_line['order_id'] = created_po.id
 		created_line = self.env['purchase.order.line'].create(vals_line)
