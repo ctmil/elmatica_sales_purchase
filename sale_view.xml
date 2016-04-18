@@ -19,7 +19,7 @@
         	              />
               </button>
 	          <field name="date_order" position="after">
-        	      <field name="requested_delivery_date" />
+        	      <field name="requested_delivery_date" invisible="1" />
 	              <field name="purchase_orders" />
         	  </field>
 		<page string="Other Information" position="after">
@@ -37,6 +37,17 @@
             <field name="arch" type="xml">
 		<field name="calculated_leadtime" position="before">
 			    <field name="shipping_days" readonly="1"/>
+                </field>
+            </field>
+	</record>
+
+        <record model="ir.ui.view" id="elmatica_fix_seller_ids">
+            <field name="name">elmatica.fix.seller_ids</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+		<field name="seller_ids" position="attributes">
+			    <attribute name="readonly">0</attribute>
                 </field>
             </field>
 	</record>
