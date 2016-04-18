@@ -122,7 +122,39 @@ class sale_order(models.Model):
 
                 _logger.info('Created purchase order %s / %s', created_po, created_po.name)
 
+    @api.one
+    def _compute_additional_days(self):
+        if self.order_line:
+            return_value = 0
+            for line in order.order_line:
+                return_value += line.additional_days
 
+    @api.one
+    def _compute_buffer_days(self):
+        if self.order_line:
+            return_value = 0
+            for line in order.order_line:
+                return_value += line.buffer_days
+
+    @api.one
+    def _compute_shipping_days(self):
+        if self.order_line:
+            return_value = 0
+            for line in order.order_line:
+                return_value += line.shipping_days
+
+    @api.one
+    def _compute_calculated_leadtime(self):
+        if self.order_line:
+            return_value = 0
+            for line in order.order_line:
+                return_value += line.calculated_leadtime
+        self.calculated_leadtime = return_value
+
+    additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)
+    buffer_days = fields.Integer(string='Buffer Days', compute=_compute_buffer_days)
+    shipping_days = fields.Integer(string='Shipping Days', compute=_compute_shipping_days)
+    calculated_leadtime = fields.Integer(string='Calculated leadtime', compute=_compute_calculated_leadtime)
     purchase_ids = fields.One2many(comodel_name='purchase.order',inverse_name='sale_order_id')
 
     @api.multi
@@ -137,4 +169,4 @@ class sale_order(models.Model):
 		self.has_purchase_order = True
 	else:
 		self.has_purchase_order = False
-	
+

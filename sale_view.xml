@@ -52,6 +52,33 @@
             </field>
 	</record>
 
+        <!-- record model="ir.ui.view" id="elmatica_hides_minimum_planned_date">
+            <field name="name">elmatica.hides.minimum.planned.date</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+		<field name="minimum_planned_date" position="attributes">
+			<attribute name="invisible">1</attribute>
+		</field>
+            </field>
+	</record -->
+
+        <!-- record model="ir.ui.view" id="elmatica_adds_minimum_planned_date">
+            <field name="name">elmatica.adds.minimum.planned.date</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+	       <xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/field[@name='minimum_planned_date']"
+			 position="attributes">
+			<attribute name="invisible">1</attribute>
+	       </xpath>
+		<field name="date_order" position="before">
+			<field name="minimum_planned_date" />
+		</field>
+            </field>
+	</record -->
+	
+
     </data>
 </openerp>
 
