@@ -126,28 +126,28 @@ class sale_order(models.Model):
     def _compute_additional_days(self):
         if self.order_line:
             return_value = 0
-            for line in order.order_line:
+            for line in self.order_line:
                 return_value += line.additional_days
 
     @api.one
     def _compute_buffer_days(self):
         if self.order_line:
             return_value = 0
-            for line in order.order_line:
+            for line in self.order_line:
                 return_value += line.buffer_days
 
     @api.one
     def _compute_shipping_days(self):
         if self.order_line:
             return_value = 0
-            for line in order.order_line:
+            for line in self.order_line:
                 return_value += line.shipping_days
 
     @api.one
     def _compute_calculated_leadtime(self):
         if self.order_line:
             return_value = 0
-            for line in order.order_line:
+            for line in self.order_line:
                 return_value += line.calculated_leadtime
         self.calculated_leadtime = return_value
 
