@@ -128,6 +128,7 @@ class sale_order(models.Model):
             return_value = 0
             for line in self.order_line:
                 return_value += line.additional_days
+	    self.additional_days = return_value
 
     @api.one
     def _compute_buffer_days(self):
@@ -135,6 +136,7 @@ class sale_order(models.Model):
             return_value = 0
             for line in self.order_line:
                 return_value += line.buffer_days
+	    self.buffer_days = return_value
 
     @api.one
     def _compute_shipping_days(self):
@@ -142,6 +144,7 @@ class sale_order(models.Model):
             return_value = 0
             for line in self.order_line:
                 return_value += line.shipping_days
+	    self.shipping_days = return_value
 
     @api.one
     def _compute_calculated_leadtime(self):
