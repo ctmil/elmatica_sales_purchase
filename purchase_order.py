@@ -17,7 +17,7 @@ class purchase_order(models.Model):
 		#	self.hub_days = 0
 		#else:
 		# import pdb;pdb.set_trace()
-		return_value = self.sale_order_id.calculated_leadtime - ( self.sale_order_id.shipping_days \
+		return_value = self.sale_order_id.calculated_leadtime - ( self.sale_order_id.manufacturing_days + self.sale_order_id.shipping_days \
 			+ self.sale_order_id.additional_days + self.sale_order_id.buffer_days )
 		self.hub_days = return_value
 
