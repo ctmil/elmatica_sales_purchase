@@ -127,7 +127,7 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-                return_value += line.manufacturing_days
+                return_value += line.manufacturing_leadtime
 	    self.manufacturing_days = return_value
 
     @api.one
