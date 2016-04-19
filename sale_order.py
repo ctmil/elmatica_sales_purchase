@@ -123,6 +123,14 @@ class sale_order(models.Model):
                 _logger.info('Created purchase order %s / %s', created_po, created_po.name)
 
     @api.one
+    def _compute_manufacturing_days(self):
+        if self.order_line:
+            return_value = 0
+            for line in self.order_line:
+                return_value += line.manufacturing_days
+	    self.manufacturing_days = return_value
+
+    @api.one
     def _compute_additional_days(self):
         if self.order_line:
             return_value = 0
@@ -154,6 +162,7 @@ class sale_order(models.Model):
                 return_value += line.calculated_leadtime
         self.calculated_leadtime = return_value
 
+    manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)
     additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)
     buffer_days = fields.Integer(string='Buffer Days', compute=_compute_buffer_days)
     shipping_days = fields.Integer(string='Shipping Days', compute=_compute_shipping_days)
