@@ -88,7 +88,8 @@ class sale_order(models.Model):
 					break
 		else:
 			if line.product_id.default_code == 'NRE':
-				cost_unit = nre_cost
+				cost_unit = line.nre_cost
+				line_product = line.product_id.id
 			else:
 				line_product = line.product_id.id
 				pricelist = sale.selected_supplier.property_product_pricelist_purchase
