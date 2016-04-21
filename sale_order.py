@@ -43,7 +43,7 @@ class sale_order(models.Model):
 	    partner_id = None
 	    requested_delivery = None
             for line in lines:
-                po = {'company_id': sale.company_id.id,
+                po = {'company_id': sale.partner_id.company_id.id,
                 	  'currency_id': sale.selected_supplier.property_product_pricelist_purchase.currency_id.id,
 	                  #'name': sale.name,
         	          'partner_id': sale.selected_supplier.id,
