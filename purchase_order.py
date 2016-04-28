@@ -11,7 +11,7 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _compute_related_ppo(self):
-		pos = self.sale_order_id.purchase_order_ids
+		pos = self.sale_order_id.purchase_ids
 		return_value = None
 		for po in pos:
 			if po.order_type == 'PPO':
@@ -20,7 +20,7 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _compute_related_tpo(self):
-		pos = self.sale_order_id.purchase_order_ids
+		pos = self.sale_order_id.purchase_ids
 		return_value = None
 		for po in pos:
 			if po.order_type == 'TPO':
@@ -43,4 +43,4 @@ class purchase_order(models.Model):
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
 	related_ppo = fields.Many2one('purchase.order',string='Related PPO',compute=_compute_related_ppo)
-	related_tpo = fields.Many2one('purchase.order',string='Related TPO',compute=_compute_related_ppo)
+	related_tpo = fields.Many2one('purchase.order',string='Related TPO',compute=_compute_related_tpo)
