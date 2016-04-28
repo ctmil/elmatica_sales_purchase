@@ -63,6 +63,8 @@
 	       </xpath>
 		<field name="date_order" position="before">
 			<field name="minimum_planned_date" />
+			<field name="related_ppo" />
+			<field name="related_tpo" />
 		</field>
             </field>
 	</record>
