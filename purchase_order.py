@@ -44,4 +44,4 @@ class purchase_order(models.Model):
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
 	related_ppo = fields.Many2one('purchase.order',string='Related PPO',compute=_compute_related_ppo)
 	related_tpo = fields.Many2one('purchase.order',string='Related TPO',compute=_compute_related_tpo)
-
+	wkng_gerber = fields.Boolean(string='Wkng Gerber',default=True)
