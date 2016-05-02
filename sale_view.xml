@@ -67,7 +67,7 @@
 			<field name="related_tpo" />
 		</field>
 		<button name="purchase_confirm" position="attributes">
-			<attribute name="invisible">[('state','not in',['draft','sent','bid'])]</attribute>
+			<attribute name="invisible">0</attribute>
 		</button>
             </field>
 	</record>
