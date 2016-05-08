@@ -61,11 +61,13 @@
 			 position="attributes">
 			<attribute name="invisible">1</attribute>
 	       </xpath>
-		<field name="date_order" position="before">
+		<field name="date_approve" position="before">
 			<field name="minimum_planned_date" />
 			<field name="hub_days" groups="purchase.group_purchase_user" />
 			<field name="shipping_days" groups="purchase.group_purchase_user" />
-			<field name="customer_partner_days_add" groups="purchase.group_purchase_user" />
+			<!-- field name="customer_partner_days_add" groups="purchase.group_purchase_user" / -->
+		</field>
+		<field name="date_order" position="before">
 			<field name="related_ppo" />
 			<field name="related_tpo" />
 		</field>
