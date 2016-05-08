@@ -63,6 +63,7 @@
 	       </xpath>
 		<field name="date_order" position="before">
 			<field name="minimum_planned_date" />
+			<field name="hub_days" groups="purchase.group_purchase_user" />
 			<field name="related_ppo" />
 			<field name="related_tpo" />
 		</field>
@@ -77,9 +78,6 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="elmatica_purchase_flow.confirm_purchase_order_form"/>
             <field name="arch" type="xml">
-		<field name="hub_days" position="attributes">	
-			<attribute name="groups">purchase.group_purchase_user</attribute>
-		</field>
 		<field name="buffer_days" position="attributes">	
 			<attribute name="groups">purchase.group_purchase_user</attribute>
 		</field>
