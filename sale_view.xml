@@ -81,9 +81,9 @@
 		<field name="buffer_days" position="attributes">	
 			<attribute name="groups">purchase.group_purchase_user</attribute>
 		</field>
-		<field name="customer_partner_days_add" position="attributes">	
+		<!-- field name="customer_partner_days_add" position="attributes">	
 			<attribute name="groups">purchase.group_purchase_user</attribute>
-		</field>
+		</field -->
 		<field name="shipping_days" position="attributes">	
 			<attribute name="groups">purchase.group_purchase_user</attribute>
 		</field>
