@@ -122,9 +122,9 @@ class sale_order(models.Model):
         	created_po = self.env['purchase.order'].create(po)
 		vals_line['order_id'] = created_po.id
 		created_line = self.env['purchase.order.line'].create(vals_line)
-	        required_shipping_date = created_po.calculate_shipping_date()
-        	for line in created_po.order_line:
-	                line.date_planned = required_shipping_date
+	        #required_shipping_date = created_po.calculate_shipping_date()
+        	#for line in created_po.order_line:
+	        #        line.date_planned = required_shipping_date
 
                 _logger.info('Created purchase order %s / %s', created_po, created_po.name)
 
