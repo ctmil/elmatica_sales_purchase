@@ -26,6 +26,8 @@ class sale_order(models.Model):
         _logger.debug('Product names to skip %s - %s', domain_to_skip, products_to_skip)
 
         for sale in self:
+	    if not sale.selected_supplier:
+                raise exceptions.ValidationError(_('No supplier set for order %s' % sale.name))
             if not sale.requested_delivery_date:
                 raise exceptions.ValidationError(_('Requested delivery date not set for sales order %s' % sale.name))
             if not sale.state in ['progress','manual']:
