@@ -11,7 +11,7 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _compute_related_ppo(self):
-		pos = self.sale_order_id.purchase_ids
+		pos = self.sudo().sale_order_id.purchase_ids
 		return_value = None
 		for po in pos:
 			if po.order_type == 'PPO':
@@ -20,7 +20,7 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _compute_related_tpo(self):
-		pos = self.sale_order_id.purchase_ids
+		pos = self.sudo().sale_order_id.purchase_ids
 		return_value = None
 		for po in pos:
 			if po.order_type == 'TPO':
