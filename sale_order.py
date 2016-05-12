@@ -163,6 +163,20 @@ class sale_order(models.Model):
               	return_value += line.calculated_leadtime
         self.calculated_leadtime = return_value
 
+    @api.one
+    def _compute_hub_days(self):
+	return_value = 0
+	for line in self.order_line:
+		if line.product_id.is_pack:
+                	for product in line.product_id.wk_product_pack:
+                        	if product.product_name.product_tmpl_id.ntty_id == '' or \
+                                	not product.product_name.product_tmpl_id.ntty_id:
+                			return_value = return_value + product.product_name.sale_delay
+
+	self.hub_days = return_value
+
+
+    hub_days = fields.Integer(string='Autoline Days',compute=_compute_hub_days)
     manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)
     additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)
     buffer_days = fields.Integer(string='Buffer Days', compute=_compute_buffer_days)
