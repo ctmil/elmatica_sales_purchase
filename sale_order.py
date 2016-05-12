@@ -153,14 +153,6 @@ class sale_order(models.Model):
 	    self.buffer_days = return_value
 
     @api.one
-    def _compute_shipping_days(self):
-        if self.order_line:
-            return_value = 0
-            for line in self.order_line:
-                return_value += line.shipping_days
-	    self.shipping_days = return_value
-
-    @api.one
     def _compute_calculated_leadtime(self):
         if self.order_line:
             return_value = 0
@@ -171,7 +163,6 @@ class sale_order(models.Model):
     manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)
     additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)
     buffer_days = fields.Integer(string='Buffer Days', compute=_compute_buffer_days)
-    shipping_days = fields.Integer(string='Shipping Days', compute=_compute_shipping_days)
     calculated_leadtime = fields.Integer(string='Calculated leadtime', compute=_compute_calculated_leadtime)
     purchase_ids = fields.One2many(comodel_name='purchase.order',inverse_name='sale_order_id')
 
