@@ -41,7 +41,7 @@ class purchase_order(models.Model):
 			order = self.sudo().sale_order_id
 			for line in order.order_line:
 	                        if line.product_id.is_pack:
-	                                for product in self.product_id.wk_product_pack:
+	                                for product in line.product_id.wk_product_pack:
         	                                if product.product_name.product_tmpl_id.ntty_id == '':
                                 	                return_value = return_value + product.product_name.sale_delay
 			self.hub_days = return_value
