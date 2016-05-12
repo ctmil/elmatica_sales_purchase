@@ -141,7 +141,8 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-                return_value += line.additional_days
+		if line.product_id.default_code != 'NRE':
+	                return_value += line.additional_days
 	    self.additional_days = return_value
 
     @api.one
@@ -149,7 +150,8 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-                return_value += line.buffer_days
+		if line.product_id.default_code != 'NRE':
+                	return_value += line.buffer_days
 	    self.buffer_days = return_value
 
     @api.one
@@ -158,7 +160,7 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-                return_value += line.calculated_leadtime
+              	return_value += line.calculated_leadtime
         self.calculated_leadtime = return_value
 
     manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)

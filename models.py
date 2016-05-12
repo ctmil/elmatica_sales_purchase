@@ -57,7 +57,10 @@ class sale_order_line(models.Model):
 
 	@api.one
 	def _compute_shipping_days(self):
-		self.shipping_days = self.order_id.shipping_days
+		if self.product_id.default_code != 'NRE':
+			self.shipping_days = self.order_id.shipping_days
+		else:
+			self.shipping_days = 0
 
 	shipping_days = fields.Integer(string='Shipping days',compute=_compute_shipping_days)
         calculated_leadtime = fields.Integer(string='Calculated Leadtime',compute=_compute_calculated_leadtime_20)
