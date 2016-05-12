@@ -34,7 +34,6 @@ class purchase_order(models.Model):
 		if supplier.delivery_method=='exw': # ExWorks
 			self.hub_days = 0
 		else:
-		# import pdb;pdb.set_trace()
 			return_value = self.sudo().sale_order_id.calculated_leadtime - ( self.sudo().sale_order_id.manufacturing_days \
 				+ self.sudo().sale_order_id.shipping_days + self.sudo().sale_order_id.additional_days \
 				+ self.sudo().sale_order_id.buffer_days )

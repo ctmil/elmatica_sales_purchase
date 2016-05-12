@@ -18,14 +18,21 @@
 	                      help="Create purchase order."
         	              />
               </button>
-	          <field name="date_order" position="after">
+	          <!-- field name="date_order" position="after">
         	      <field name="requested_delivery_date" invisible="1" />
 	              <field name="purchase_orders" />
-        	  </field>
+        	  </field -->
 		<page string="Other Information" position="after">
 			<page string="Purchase Orders">
 				<field name="purchase_ids" readonly="1"/>
 			</page>
+			<group string="Date information">
+				<field name="calculated_leadtime" readonly="1" />
+				<field name="manufacturing_days" readonly="1" />
+				<field name="shipping_days" readonly="1" />
+				<field name="additional_days" readonly="1" />
+				<field name="buffer_days" readonly="1" />
+			</group>
 		</page>
             </field>
         </record>
