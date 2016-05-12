@@ -29,16 +29,16 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _calc_hub_days20(self):
-		#supplier = self.partner_id
+		supplier = self.partner_id
 		#import pdb;pdb.set_trace()
-		#if supplier.delivery_method=='exw': # ExWorks
-		#	self.hub_days = 0
-		#else:
+		if supplier.delivery_method=='exw': # ExWorks
+			self.hub_days = 0
+		else:
 		# import pdb;pdb.set_trace()
-		return_value = self.sudo().sale_order_id.calculated_leadtime - ( self.sudo().sale_order_id.manufacturing_days \
-			+ self.sudo().sale_order_id.shipping_days + self.sudo().sale_order_id.additional_days \
-			+ self.sudo().sale_order_id.buffer_days )
-		self.hub_days = return_value
+			return_value = self.sudo().sale_order_id.calculated_leadtime - ( self.sudo().sale_order_id.manufacturing_days \
+				+ self.sudo().sale_order_id.shipping_days + self.sudo().sale_order_id.additional_days \
+				+ self.sudo().sale_order_id.buffer_days )
+			self.hub_days = return_value
 
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
