@@ -34,9 +34,16 @@ class purchase_order(models.Model):
 		if supplier.delivery_method=='exw': # ExWorks
 			self.hub_days = 0
 		else:
-			return_value = self.sudo().sale_order_id.calculated_leadtime - ( self.sudo().sale_order_id.manufacturing_days \
-				+ self.sudo().sale_order_id.shipping_days + self.sudo().sale_order_id.additional_days \
-				+ self.sudo().sale_order_id.buffer_days )
+			#return_value = self.sudo().sale_order_id.calculated_leadtime - ( self.sudo().sale_order_id.manufacturing_days \
+			#	+ self.sudo().sale_order_id.shipping_days + self.sudo().sale_order_id.additional_days \
+			#	+ self.sudo().sale_order_id.buffer_days )
+                        return_value = 0
+			order = self.sudo().sale_order_id
+			for line in order.order_line:
+	                        if line.product_id.is_pack:
+	                                for product in self.product_id.wk_product_pack:
+        	                                if product.product_name.product_tmpl_id.ntty_id == '':
+                                	                return_value = return_value + product.product_name.sale_delay
 			self.hub_days = return_value
 
 
