@@ -154,6 +154,7 @@ class sale_order(models.Model):
 
     @api.one
     def _compute_calculated_leadtime(self):
+	return_value = 0
         if self.order_line:
             return_value = 0
             for line in self.order_line:
