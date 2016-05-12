@@ -79,6 +79,9 @@
 			<field name="related_ppo" />
 			<field name="related_tpo" />
 		</field>
+		<field name="date_order" position="attributes">
+			<attribute name="invisible">1</attribute>
+		</field>
 		<button name="purchase_confirm" position="attributes">
 			<attribute name="invisible">0</attribute>
 		</button>
