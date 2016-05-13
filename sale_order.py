@@ -60,10 +60,6 @@ class sale_order(models.Model):
 		if line.product_id.product_tmpl_id.is_pack:
 			if not requested_delivery:
 				d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
-				n_index = 0
-				d_index_date = d_requested_date
-				n_check_top = line.calculated_leadtime - line.manufacturing_leadtime
-				n_additional_days = 0
 				#while n_index < (n_check_top):
 				#	d_index_date = d_index_date - datetime.timedelta(days=n_index)
 				#	if d_index_date.weekday() in [5,6]:
@@ -72,9 +68,9 @@ class sale_order(models.Model):
 				requested_delivery = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
 					- datetime.timedelta(days=(line.calculated_leadtime - line.manufacturing_leadtime))
 				if requested_delivery.weekday() == 5:
-					requested_delivery = requested_delivery + datetime.timedelta(days=2)
+					requested_delivery = requested_delivery - datetime.timedelta(days=1)
 				if requested_delivery.weekday() == 6:
-					requested_delivery = requested_delivery + datetime.timedelta(days=1)
+					requested_delivery = requested_delivery - datetime.timedelta(days=2)
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
