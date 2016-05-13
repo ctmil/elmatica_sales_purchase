@@ -105,7 +105,8 @@ class sale_order(models.Model):
                         'product_qty' : line.product_uom_qty,
                         'company_id': line.company_id.id,
                         'product_id': line_product,
-                        'date_planned': sale.requested_delivery_date, # Must be updated later.
+                        # 'date_planned': sale.requested_delivery_date, # Must be updated later.
+                        'date_planned': requested_delivery, # Must be updated later.
                   }
       	        index += 1
 		po['buffer_days'] = line.buffer_days
