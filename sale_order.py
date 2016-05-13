@@ -64,11 +64,11 @@ class sale_order(models.Model):
 				d_index_date = d_requested_date
 				n_check_top = line.calculated_leadtime - line.manufacturing_leadtime
 				n_additional_days = 0
-				while n_index < (n_check_top):
-					d_index_date = d_index_date - datetime.timedelta(days=n_index)
-					if d_index_date.weekday() in [5,6]:
-						n_additional_days = n_additional_days + 1
-					n_index = n_index + 1
+				#while n_index < (n_check_top):
+				#	d_index_date = d_index_date - datetime.timedelta(days=n_index)
+				#	if d_index_date.weekday() in [5,6]:
+				#		n_additional_days = n_additional_days + 1
+				#	n_index = n_index + 1
 				requested_delivery = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
 					- datetime.timedelta(days=(line.calculated_leadtime - line.manufacturing_leadtime))
 				if requested_delivery.weekday() == 5:
