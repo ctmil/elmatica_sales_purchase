@@ -71,6 +71,7 @@ class sale_order(models.Model):
 					requested_delivery = requested_delivery - datetime.timedelta(days=1)
 				if requested_delivery.weekday() == 6:
 					requested_delivery = requested_delivery - datetime.timedelta(days=2)
+				self.write({'requested_delivery': requested_delivery})
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
@@ -105,8 +106,7 @@ class sale_order(models.Model):
                         'product_qty' : line.product_uom_qty,
                         'company_id': line.company_id.id,
                         'product_id': line_product,
-                        # 'date_planned': sale.requested_delivery_date, # Must be updated later.
-                        'date_planned': requested_delivery, # Must be updated later.
+                        'date_planned': sale.requested_delivery_date, # Must be updated later.
                   }
       	        index += 1
 		po['buffer_days'] = line.buffer_days
