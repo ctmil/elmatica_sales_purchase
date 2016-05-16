@@ -57,8 +57,8 @@ class purchase_order(models.Model):
 				requested_delivery = requested_delivery + datetime.timedelta(days=2)
 			if requested_delivery.weekday() == 6:
 				requested_delivery = requested_delivery + datetime.timedelta(days=1)
-			self.write({'requested_delivery': requested_delivery})
-		return None
+			return_id = self.write({'requested_delivery': requested_delivery})
+		return True
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
