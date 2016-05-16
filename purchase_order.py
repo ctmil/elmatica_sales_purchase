@@ -57,7 +57,11 @@ class purchase_order(models.Model):
 				requested_delivery = requested_delivery + datetime.timedelta(days=2)
 			if requested_delivery.weekday() == 6:
 				requested_delivery = requested_delivery + datetime.timedelta(days=1)
-			return_id = self.write({'requested_delivery': requested_delivery})
+			vals = {
+				'requested_delivery': requested_delivery,
+				'updated_delivery': requested_delivery
+				}
+			return_id = self.write(vals)
 		return True
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
