@@ -47,6 +47,19 @@ class purchase_order(models.Model):
                                 	                return_value = return_value + product.product_name.sale_delay
 			self.hub_days = return_value
 
+	@api.multi
+	def force_calculate_shipping_date(self):
+		if self.confirmed_date and self.sale_id:
+			sale = self.sale_id
+			d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
+			requested_delivery = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date() \
+				- datetime.timedelta(days=(sale.calculated_leadtime - sale.manufacturing_leadtime))
+			if requested_delivery.weekday() == 5:
+				requested_delivery = requested_delivery - datetime.timedelta(days=1)
+			if requested_delivery.weekday() == 6
+				requested_delivery = requested_delivery - datetime.timedelta(days=2)
+			self.write({'requested_delivery': requested_delivery})
+		return None
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
