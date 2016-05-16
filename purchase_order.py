@@ -56,7 +56,7 @@ class purchase_order(models.Model):
 				- datetime.timedelta(days=(sale.calculated_leadtime - sale.manufacturing_leadtime))
 			if requested_delivery.weekday() == 5:
 				requested_delivery = requested_delivery - datetime.timedelta(days=1)
-			if requested_delivery.weekday() == 6
+			if requested_delivery.weekday() == 6:
 				requested_delivery = requested_delivery - datetime.timedelta(days=2)
 			self.write({'requested_delivery': requested_delivery})
 		return None
