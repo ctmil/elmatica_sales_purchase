@@ -60,6 +60,7 @@ class purchase_order(models.Model):
 			vals = {
 				'requested_delivery': requested_delivery,
 				'updated_delivery': requested_delivery
+				'delivery_date': requested_delivery
 				}
 			return_id = self.write(vals)
 		return True
