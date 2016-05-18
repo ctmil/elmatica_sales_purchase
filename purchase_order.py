@@ -59,7 +59,7 @@ class purchase_order(models.Model):
 				requested_delivery = requested_delivery + datetime.timedelta(days=1)
 			vals = {
 				'requested_delivery': requested_delivery,
-				'updated_delivery': requested_delivery
+				'updated_delivery': requested_delivery,
 				'delivery_date': requested_delivery
 				}
 			return_id = self.write(vals)
