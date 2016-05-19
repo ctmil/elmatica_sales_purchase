@@ -176,6 +176,14 @@ class sale_order(models.Model):
 	self.hub_days = return_value
 
 
+    @api.one
+    def _compute_wkng_gerber(self):
+        if self.partner_id.wkng_gerber:
+                return True
+        else:
+                return False
+
+    wkng_gerber = fields.Boolean(string='Wkng Gerber',default=_compute_wkng_gerber)
     hub_days = fields.Integer(string='Autoline Days',compute=_compute_hub_days)
     manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)
     additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)

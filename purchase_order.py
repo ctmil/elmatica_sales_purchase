@@ -69,7 +69,7 @@ class purchase_order(models.Model):
 	def _calculate_wkng_gerber(self):
 		if self.sale_id:
 			sale = self.sale_id
-			if sale.has_wkng_gerber:
+			if sale.wkng_gerber:
 				return True
 		return False
 
