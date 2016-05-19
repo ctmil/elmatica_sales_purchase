@@ -25,7 +25,6 @@
 		<page string="Other Information" position="after">
 			<page string="Purchase Orders">
 				<field name="purchase_ids" readonly="1"/>
-				<field name="wkng_gerber" />
 				<group string="Date information">
 					<field name="calculated_leadtime" readonly="1" />
 					<field name="manufacturing_days" readonly="1" />
@@ -78,6 +77,7 @@
 		<field name="date_order" position="before">
 			<field name="related_ppo" />
 			<field name="related_tpo" />
+			<field name="wkng_gerber" />
 		</field>
 		<field name="date_order" position="attributes">
 			<attribute name="invisible">1</attribute>
