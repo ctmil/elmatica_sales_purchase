@@ -36,4 +36,12 @@ class purchase_order(osv.osv):
 	_inherit = 'purchase.order'
 
 	def wkf_confirm_order(self, cr, uid, ids, context=None):
-        	import pdb;pdb.set_trace()
+		ppo = False
+		for order_id in ids:
+			po = self.pool.get('purchase.order').browse(cr,uid,order_id)
+			for line in po.order_line:
+				if line.product_id.default_code == 'NRE':
+					ppo = True
+			if ppo and po.wkng_gerber:
+		                raise osv.except_osv(_('Error!'), _("WkngGerber defined for the PO"))
+	        return super(purchase_order, self).wkf_confirm_order(cr, uid, context=context)
