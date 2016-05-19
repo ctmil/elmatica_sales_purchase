@@ -39,6 +39,6 @@ class purchase_order(osv.osv):
 		ppo = False
 		for order_id in ids:
 			po = self.pool.get('purchase.order').browse(cr,uid,order_id)
-			if po.related_ppo == order_id and po.wkng_gerber:
+			if po.related_ppo.id == order_id and po.wkng_gerber:
 		                raise osv.except_osv(_('Error!'), _("WkngGerber defined for the PO"))
-	        return super(purchase_order, self).wkf_confirm_order(cr, uid, context=context)
+	        return super(purchase_order, self).wkf_confirm_order(cr, uid, ids, context=context)
