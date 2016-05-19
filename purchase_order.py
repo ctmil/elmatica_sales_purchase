@@ -67,10 +67,10 @@ class purchase_order(models.Model):
 
 	@api.one
 	def _calculate_wkng_gerber(self):
-		if self.sale_id:
-			sale = self.sale_id
-			if sale.wkng_gerber:
-				return True
+		if self.sale_id.wkng_gerber:
+			return True
+		if self.sale_id.partner_id.wkng_gerber:
+			return True
 		return False
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
