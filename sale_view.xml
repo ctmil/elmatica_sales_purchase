@@ -69,9 +69,6 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-	       <!-- xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='minimum_planned_date']"  position="attributes">
-			<attribute name="invisible">1</attribute>
-	       </xpath -->
 	       <!-- xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='minimum_planned_date']"  position="replace" / -->
 		<field name="date_approve" position="before">
 			<field name="hub_days" groups="purchase.group_purchase_user" />
