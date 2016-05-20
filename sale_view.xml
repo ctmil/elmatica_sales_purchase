@@ -101,9 +101,7 @@
 			<attribute name="groups">purchase.group_purchase_user</attribute>
 		</field>
 		<field name="date_order" position="after">
-			<group>
-				<field name="minimum_planned_date" />
-			</group>
+			<field name="minimum_planned_date" />
 		</field>
 		<!-- field name="customer_partner_days_add" position="attributes">	
 			<attribute name="groups">purchase.group_purchase_user</attribute>
