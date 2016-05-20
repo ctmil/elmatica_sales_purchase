@@ -72,7 +72,7 @@
 	       <!-- xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='minimum_planned_date']"  position="attributes">
 			<attribute name="invisible">1</attribute>
 	       </xpath -->
-	       <xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='minimum_planned_date']"  position="replace" />
+	       <!-- xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='minimum_planned_date']"  position="replace" / -->
 		<field name="date_approve" position="before">
 			<field name="hub_days" groups="purchase.group_purchase_user" />
 			<!-- field name="shipping_days" groups="purchase.group_purchase_user" / -->
@@ -92,7 +92,7 @@
             </field>
 	</record>
 
-        <record model="ir.ui.view" id="elmatica_purchase_order_adds_group">
+        <!-- record model="ir.ui.view" id="elmatica_purchase_order_adds_group">
             <field name="name">elmatica.adds.minimum.planned.date</field>
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="elmatica_purchase_flow.confirm_purchase_order_form"/>
@@ -103,14 +103,8 @@
 		<field name="date_order" position="after">
 			<field name="minimum_planned_date" />
 		</field>
-		<!-- field name="customer_partner_days_add" position="attributes">	
-			<attribute name="groups">purchase.group_purchase_user</attribute>
-		</field>
-		<field name="shipping_days" position="attributes">	
-			<attribute name="groups">purchase.group_purchase_user</attribute>
-		</field -->
             </field>
-	</record>
+	</record -->
 	
 
     </data>
