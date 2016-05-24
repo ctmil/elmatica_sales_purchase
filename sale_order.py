@@ -141,7 +141,7 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-		if line.product_id.default_code != 'NRE':
+		if line.sudo().product_id.default_code != 'NRE':
 	                return_value += line.additional_days
 	    self.additional_days = return_value
 
@@ -150,7 +150,7 @@ class sale_order(models.Model):
         if self.order_line:
             return_value = 0
             for line in self.order_line:
-		if line.product_id.default_code != 'NRE':
+		if line.sudo().product_id.default_code != 'NRE':
                 	return_value += line.buffer_days
 	    self.buffer_days = return_value
 
@@ -167,8 +167,8 @@ class sale_order(models.Model):
     def _compute_hub_days(self):
 	return_value = 0
 	for line in self.order_line:
-		if line.product_id.is_pack:
-                	for product in line.product_id.wk_product_pack:
+		if line.sudo().product_id.is_pack:
+                	for product in line.sudo().product_id.wk_product_pack:
                         	if product.product_name.product_tmpl_id.ntty_id == '' or \
                                 	not product.product_name.product_tmpl_id.ntty_id:
                 			return_value = return_value + product.product_name.sale_delay
