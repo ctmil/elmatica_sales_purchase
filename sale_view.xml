@@ -22,8 +22,8 @@
         	      <field name="requested_delivery_date" invisible="1" />
 	              <field name="purchase_orders" />
         	  </field -->
-		<page string="Other Information" position="after">
-			<page string="Purchase Orders">
+		<!-- page string="Other Information" position="after">
+			<page string="Purchase Orders" >
 				<field name="purchase_ids" readonly="1"/>
 				<group>
 					<field name="partner_wkng_gerber" />
@@ -38,7 +38,7 @@
 					<field name="hub_days" readonly="1" />
 				</group>
 			</page>
-		</page>
+		</page -->
             </field>
         </record>
 
