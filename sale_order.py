@@ -80,10 +80,11 @@ class sale_order(models.Model):
 					line_product = line_pack.product_name.id
 					partner_id = line_pack.product_name.supplier_id.id
        	        			# cost_unit = line.unit_cost
+					import  pdb;pdb.set_trace()
 					pricelist = sale.selected_supplier.property_product_pricelist_purchase
-					cost_unit = self.env['product.pricelist'].price_get(cr, uid, [pricelist.id],\
-			                        line.product.id, line.product_uom_qty or 1.0, partner_id or False,\
-						 {'uom': line.product_uom.id, 'date': str(date.today())})[pricelist.id]
+					return_pricelist = pricelist.price_get(line_product, line.product_uom_qty or 1.0, partner_id or False,\
+						 context = {'uom': line.product_uom.id, 'date': str(date.today())})
+					cost_unit = return_pricelist[pricelist.id]
 					if pricelist.currency_id.id != sale.currency_id.id:
 						cost_unit = cost_unit / line.quoted_rate
 					break
