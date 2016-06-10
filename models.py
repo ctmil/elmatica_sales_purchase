@@ -22,10 +22,7 @@ class sale_order(models.Model):
 			self.shipping_days = 0
 		else:
 			if self.incoterm and self.incoterm.code in ('FCA', 'EXW'):
-				if self.incoterm.code == 'FCA':
-                			self.shipping_days = 1
-				elif self.incoterm.code == 'EXW':
-					self.shipping_days = 0
+				self.shipping_days = 0
 			else:
 				days = self.env['elmatica_purchase_flow.shipping_days'].search([('to_country','=',destination.id)])
 				if len(days)!=1:
