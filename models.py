@@ -54,7 +54,7 @@ class sale_order_line(models.Model):
 
 	@api.one
 	def _compute_shipping_days(self):
-		if self.product_id.default_code != 'NRE':
+		if self.product_id.default_code != 'NRE' and self.incoterm.code != 'FCA':
 			self.shipping_days = self.order_id.shipping_days
 		else:
 			self.shipping_days = 0
