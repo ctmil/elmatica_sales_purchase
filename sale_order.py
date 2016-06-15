@@ -98,7 +98,12 @@ class sale_order(models.Model):
 				 context = {'uom': 1, 'date': str(date.today())})
 				cost_unit = return_pricelist[pricelist.id]
                         d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
-			requested_delivery = str(d_requested_date + datetime.timedelta(days=2))
+			d_requested_delivery = d_requested_date + datetime.timedelta(days=2)
+			if d_requested_delivery.weekday() == 5:
+				d_requested_delivery = d_requested_delivery.datetime.timedelta(days=2)
+			if d_requested_delivery.weekday() == 6:
+				d_requested_delivery = d_requested_delivery.datetime.timedelta(days=1)
+			requested_delivery = str(d_requested_delivery)
 		
                	vals_line = {'name': line.name,
                         'product_uom': line.product_uom.id,
