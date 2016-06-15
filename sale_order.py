@@ -90,8 +90,9 @@ class sale_order(models.Model):
 					break
 			# Checks MOV
 			if line_product:
+				product = self.env['product.product'].browse(line_product)
 				suppinfo = self.env['product.supplierinfo'].search([('name','=',sale.selected_supplier.id),\
-							('product_tmpl_id','=',line.product_id.product_tmpl_id.id)])
+							('product_tmpl_id','=',product.product_tmpl_id.id)])
 				if suppinfo:
 					if suppinfo.mov:
 						if (cost_unit * line.product_uom_qty) < suppinfo.mov:
