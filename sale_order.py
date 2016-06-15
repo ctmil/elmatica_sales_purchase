@@ -34,7 +34,7 @@ class sale_order(models.Model):
                 raise exceptions.ValidationError(_('Order should be confirmed in order to create POs'))
 
             customer_location = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_stock_customer')])[0]
-            #pricelist = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
+            #pricelist=self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
             location_ref = int(customer_location.value_reference.split(',')[-1])
             #pricelist_ref = int(pricelist.value_reference.split(',')[-1])
 
@@ -71,6 +71,7 @@ class sale_order(models.Model):
 					requested_delivery = requested_delivery - datetime.timedelta(days=1)
 				if requested_delivery.weekday() == 6:
 					requested_delivery = requested_delivery - datetime.timedelta(days=2)
+			line_product = None
 			for line_pack in line.product_id.product_tmpl_id.wk_product_pack:
         	        	if line.product_id.name.upper() in names_to_skip:
 	        	            _logger.info('Not making PO line for product %s', line.product_id)
@@ -87,6 +88,14 @@ class sale_order(models.Model):
 					if pricelist.currency_id.id != sale.currency_id.id:
 						cost_unit = cost_unit / line.quoted_rate
 					break
+			# Checks MOV
+			if line_product:
+				suppinfo = self.env['product.supplierinfo'].search([('partner_id','=',sale.selected_supplier.id),\
+							('product_tmpl_id','=',line_product.product_tmpl_id.id)])
+				if suppinfo:
+					if suppinfo.mov:
+						if (cost_unit * line.product_uom_qty) < suppinfo.mov:
+							cost_unit = suppinfo.mov / line.product_uom_qty
 		else:
 			if line.product_id.default_code == 'NRE':
 				cost_unit = line.nre_cost
@@ -105,6 +114,8 @@ class sale_order(models.Model):
 				d_requested_delivery = d_requested_delivery + datetime.timedelta(days=1)
 			requested_delivery = str(d_requested_delivery)
 		
+
+	
                	vals_line = {'name': line.name,
                         'product_uom': line.product_uom.id,
                         'sale_order': sale.id,
