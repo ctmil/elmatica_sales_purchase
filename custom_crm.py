@@ -156,8 +156,10 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 
         w = self.browse(cr, uid, ids, context=context)[0]
         opp_ids = [o.id for o in w.opportunity_ids]
-        vals = {
+	#import pdb;pdb.set_trace()
+	vals = {
             'section_id': w.section_id.id,
+	    'customer_project': w.customer_project,
         }
         if w.partner_id:
             vals['partner_id'] = w.partner_id.id
@@ -178,6 +180,7 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		n_qty = 1
             lead_ids = context.get('active_ids', [])
 	    temp_lead_id = lead_ids[0]
+            lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
 		    name = ''
