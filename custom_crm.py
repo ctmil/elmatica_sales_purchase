@@ -92,6 +92,8 @@ class crm_make_sale(osv.osv_memory):
 		    'requested_date': requested_date,
 		    'requested_delivery_date': requested_date,
 		    'customer_project': case.customer_project,
+		    'technical_contact': case.technical_contact.id,
+		    'procurement_contact': case.procurement_contact.id,
                     'note': sale_obj.get_salenote(cr, uid, [case.id], partner.id, context=context),
                 }
                 if partner.id:
