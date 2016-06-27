@@ -113,6 +113,25 @@
 		</field>
             </field>
 	</record -->
+
+        <record model="ir.ui.view" id="elmatica_button_convert_to_quote">
+            <field name="name">elmatica.button.convert.to.quote</field>
+            <field name="model">crm.lead</field>
+            <!-- field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/ -->
+            <field name="inherit_id" ref="elmatica_sales_customizations.crm_opportunity_form_elmatica_view"/>
+            <field name="arch" type="xml">
+		   <field name="customer_project" position="before">
+			<field name="sale_id" />
+		   </field>
+                   <!-- button string="Convert to Quotation" name="%(sale_crm.action_crm_make_sale)d" type="action" class="oe_highlight" position="attributes">
+			<attribute name="invisible">[('sale_id','!=',False)]</attribute>
+		   </button>
+                   <button string="Create Quotation" name="%(sale_crm.action_crm_make_sale)d" type="action" position="attributes">
+			<attribute name="invisible">[('sale_id','!=',False)]</attribute>
+		   </button -->
+            </field>
+	</record>
+
 	
 
     </data>
