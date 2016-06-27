@@ -63,7 +63,10 @@ class crm_make_sale(osv.osv_memory):
             for case in case_obj.browse(cr, uid, data, context=context):
 		product_name = case.product_name.id 		
 		if not partner and case.partner_id:
-                    partner = case.partner_id
+		    if case.partner_id.is_company:
+	                    partner = case.partner_id
+		    else:
+	                    partner = case.parent_id.partner_id
                     fpos = partner.property_account_position and partner.property_account_position.id or False
                     payment_term = partner.property_payment_term and partner.property_payment_term.id or False
                     partner_addr = partner_obj.address_get(cr, uid, [partner.id],
