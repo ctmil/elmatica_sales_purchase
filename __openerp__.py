@@ -1,7 +1,7 @@
 {
     'name': 'Elmatica - Sales/Purchase',
     'category': 'Sales',
-    'version': '0.1',
+    'version': '0.2',
     'depends': ['elmatica_sales_customizations','elmatica_purchase_flow'],
     'data': [
 	'sale_view.xml',
