@@ -184,7 +184,10 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 	    temp_lead_id = lead_ids[0]
 	    lead = lead_obj.browse(cr,uid,temp_lead_id)
 	    if lead.partner_id and lead.partner_id.technical_contact:
-		vals['technical_contact'] = lead.partner_id.technical_contact.id
+		if lead.partner_id.is_company:
+			vals['technical_contact'] = lead.partner_id.technical_contact.id
+		else:
+			vals['technical_contact'] = lead.partner_id.parent_id.technical_contact.id
 	    if lead.partner_id and lead.partner_id.procurement_contact:
 		vals['procurement_contact'] = lead.partner_id.procurement_contact.id
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
