@@ -86,7 +86,7 @@ class crm_make_sale(osv.osv_memory):
 			if not partner.is_company:
 				partner = partner.parent_id
 			        original_contact = case.partner_id.id
-		if partner_id.wkng_gerber or case.product_name.wkng_gerber:
+		if partner.wkng_gerber or case.product_name.wkng_gerber:
 			wkng_gerber = True
 		else:
 			wkng_gerber = False
