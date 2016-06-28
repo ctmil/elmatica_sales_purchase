@@ -65,8 +65,10 @@ class crm_make_sale(osv.osv_memory):
 		if not partner and case.partner_id:
 		    if case.partner_id.is_company:
 	                    partner = case.partner_id
+			    original_contact = None
 		    else:
 	                    partner = case.parent_id.partner_id
+			    original_contact = case.partner_id.id
                     fpos = partner.property_account_position and partner.property_account_position.id or False
                     payment_term = partner.property_payment_term and partner.property_payment_term.id or False
                     partner_addr = partner_obj.address_get(cr, uid, [partner.id],
@@ -97,6 +99,7 @@ class crm_make_sale(osv.osv_memory):
 		    'customer_project': case.customer_project,
 		    'technical_contact': case.technical_contact.id,
 		    'procurement_contact': case.procurement_contact.id,
+		    'original_contact': original_contact,
                     'note': sale_obj.get_salenote(cr, uid, [case.id], partner.id, context=context),
                 }
                 if partner.id:

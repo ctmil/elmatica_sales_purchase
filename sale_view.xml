@@ -33,6 +33,9 @@
         	      <field name="requested_delivery_date" invisible="1" />
 	              <field name="purchase_orders" />
         	  </field>
+		<field name="partner_id" position="after">
+			<field name="original_contact" string="Original Contact" />
+		</field>
 		<page string="Other Information" position="after">
 			<page string="Purchase Orders" >
 				<field name="purchase_ids" readonly="1"/>

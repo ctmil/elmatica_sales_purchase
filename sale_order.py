@@ -204,6 +204,7 @@ class sale_order(models.Model):
     buffer_days = fields.Integer(string='Buffer Days', compute=_compute_buffer_days)
     calculated_leadtime = fields.Integer(string='Calculated leadtime', compute=_compute_calculated_leadtime)
     purchase_ids = fields.One2many(comodel_name='purchase.order',inverse_name='sale_order_id')
+    original_contact = fields.Many2one('res.partner',string='Original Contact')
 
     @api.multi
     def _get_purchase_order(self):
