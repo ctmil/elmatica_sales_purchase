@@ -55,6 +55,7 @@ class sale_order(models.Model):
                 	  'dest_address_id': sale.partner_shipping_id.id,
 			  'sale_order_id': sale.id,
 			  'confirmed_date': None,
+			  'wkng_gerber': sale.wkng_gerber,
 	                  }
                 po_lines = []
 		if line.product_id.product_tmpl_id.is_pack:
