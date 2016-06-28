@@ -44,7 +44,13 @@ class sale_order(models.Model):
             index = 0
 	    partner_id = None
 	    requested_delivery = None
+	    if sale.wkng_gerber or sale.partner_id.wkng_gerber:
+	        wkng_gerber = True
+	    else:
+		wkng_gerber = False
             for line in lines:
+		if line.product_id.wkng_gerber:
+			wkng_gerber = True
                 po = {'company_id': sale.partner_id.company_id.id,
                 	  'currency_id': sale.selected_supplier.property_product_pricelist_purchase.currency_id.id,
 	                  #'name': sale.name,
@@ -55,7 +61,7 @@ class sale_order(models.Model):
                 	  'dest_address_id': sale.partner_shipping_id.id,
 			  'sale_order_id': sale.id,
 			  'confirmed_date': None,
-			  'wkng_gerber': sale.wkng_gerber,
+			  'wkng_gerber': wkng_gerber,
 	                  }
                 po_lines = []
 		if line.product_id.product_tmpl_id.is_pack:
