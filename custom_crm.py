@@ -82,6 +82,10 @@ class crm_make_sale(osv.osv_memory):
                 if False in partner_addr.values():
                     raise osv.except_osv(_('Insufficient Data!'), _('No address(es) defined for this customer.'))
 
+		if partner:
+			if not partner.is_company:
+				partner = partner.parent_id
+			        original_contact = case.partner_id.id
                 vals = {
                     'origin': ('Opportunity: %s') % str(case.id),
                     'section_id': case.section_id and case.section_id.id or False,
