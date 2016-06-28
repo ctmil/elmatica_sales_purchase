@@ -65,16 +65,17 @@ class purchase_order(models.Model):
 			return_id = self.write(vals)
 		return True
 
-	@api.one
-	def _calculate_wkng_gerber(self):
-		if self.sale_id.wkng_gerber:
-			return True
-		if self.sale_id.partner_id.wkng_gerber:
-			return True
-		return False
+	#@api.one
+	#def _calculate_wkng_gerber(self):
+	#	if self.sale_id.wkng_gerber:
+	#		return True
+	#	if self.sale_id.partner_id.wkng_gerber:
+	#		return True
+	#	return False
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
 	related_ppo = fields.Many2one('purchase.order',string='Related PPO',compute=_compute_related_ppo)
 	related_tpo = fields.Many2one('purchase.order',string='Related TPO',compute=_compute_related_tpo)
-	wkng_gerber = fields.Boolean(string='Wkng Gerber',default=_calculate_wkng_gerber)
+	# wkng_gerber = fields.Boolean(string='Wkng Gerber',default=_calculate_wkng_gerber)
+	wkng_gerber = fields.Boolean(string='Wkng Gerber')
