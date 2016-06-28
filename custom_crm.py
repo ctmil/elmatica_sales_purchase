@@ -62,10 +62,10 @@ class crm_make_sale(osv.osv_memory):
             new_ids = []
             for case in case_obj.browse(cr, uid, data, context=context):
 		product_name = case.product_name.id 		
+	        original_contact = None
 		if not partner and case.partner_id:
 		    if case.partner_id.is_company:
 	                    partner = case.partner_id
-			    original_contact = None
 		    else:
 	                    partner = case.parent_id.partner_id
 			    original_contact = case.partner_id.id
