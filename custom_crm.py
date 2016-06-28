@@ -86,6 +86,10 @@ class crm_make_sale(osv.osv_memory):
 			if not partner.is_company:
 				partner = partner.parent_id
 			        original_contact = case.partner_id.id
+		if partner_id.wkng_gerber or case.product_name.wkng_gerber:
+			wkng_gerber = True
+		else:
+			wkng_gerber = False
                 vals = {
                     'origin': ('Opportunity: %s') % str(case.id),
                     'section_id': case.section_id and case.section_id.id or False,
@@ -105,6 +109,7 @@ class crm_make_sale(osv.osv_memory):
 		    'procurement_contact': case.procurement_contact.id,
 		    'original_contact': original_contact,
                     'note': sale_obj.get_salenote(cr, uid, [case.id], partner.id, context=context),
+		    'wkng_gerber': wkng_gerber,
                 }
                 if partner.id:
                     vals['user_id'] = partner.user_id and partner.user_id.id or uid
