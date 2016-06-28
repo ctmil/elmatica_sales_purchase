@@ -196,8 +196,8 @@ class sale_order(models.Model):
 
 	self.hub_days = return_value
 
-    partner_wkng_gerber = fields.Boolean(string='Wkng Gerber',related='partner_id.wkng_gerber',readonly=True)
-    wkng_gerber = fields.Boolean(string='Override Wkng Gerber',default=False)
+    partner_wkng_gerber = fields.Boolean(string='Partner Wkng Gerber',related='partner_id.wkng_gerber',readonly=True)
+    wkng_gerber = fields.Boolean(string='Override Wkng Gerber')
     hub_days = fields.Integer(string='Autoline Days',compute=_compute_hub_days)
     manufacturing_days = fields.Integer(string='Manufacturing Days', compute=_compute_manufacturing_days)
     additional_days = fields.Integer(string='Additional Days', compute=_compute_additional_days)
