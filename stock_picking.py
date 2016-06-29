@@ -67,3 +67,49 @@ class mail_compose_message(models.TransientModel):
 
         #assert False
         return res
+
+class stock_picking(models.Model):
+    _inherit = 'stock.picking'
+
+    @api.multi
+    def action_send_shipping_info(self):
+        """
+        Copied from action_invoice_sent.Opens up mail compose dialog
+        """
+	import pdb;pdb.set_trace()
+        if 'template' in self._context:
+            template_name = self._context['template']
+        else:
+            template_name = 'elmatica_invoice.email_template_shipping_information'
+
+        title_window = self._context.get('title_window', _('Comment'))
+
+        template = self.env.ref(template_name, False)
+        assert template, 'Unable to find %s' % template_name
+        assert len(self) == 1, 'This option should only be used for a single id at a time.'
+
+        compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
+        ctx = dict(
+            default_model='stock.picking',
+            default_res_id=self.id,
+            default_use_template=bool(template),
+            default_template_id=template.id,
+            default_composition_mode='comment',
+            #mark_invoice_as_sent=False,
+            #default_is_log=True,
+            #is_log=True,
+            internal_partners_only=True,
+        )
+        return {
+            'name': title_window,
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            #'res_model': 'elmatica_invoice.mail.compose.message', # 'compose.message', # 'mail.compose.message',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form.id, 'form')],
+            'view_id': compose_form.id,
+            'target': 'new',
+            'context': ctx}
+
+

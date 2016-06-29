@@ -2,7 +2,7 @@
     'name': 'Elmatica - Sales/Purchase',
     'category': 'Sales',
     'version': '0.2',
-    'depends': ['elmatica_sales_customizations','elmatica_purchase_flow','sale_crm'],
+    'depends': ['elmatica_sales_customizations','elmatica_invoice','elmatica_purchase_flow','sale_crm','email_template'],
     'data': [
 	'sale_view.xml',
     ],
