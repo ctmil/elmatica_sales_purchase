@@ -29,6 +29,8 @@ class sale_order_line(models.Model):
 	@api.one
 	def _calc_undelivered_qty_v2(self):
 		return_value = 0
+		if self.product_id.is_pack:
+			return_value = self.product_uom_qty - self.delivered_qty
 		self.undelivered_qty = return_value	
 
 
