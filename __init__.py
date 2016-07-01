@@ -4,4 +4,4 @@ import purchase_order
 import purchase_old
 import custom_crm
 import stock_picking
-import sale_make_invoice_advance.py
+import sale_make_invoice_advance
