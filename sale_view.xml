@@ -53,7 +53,7 @@
 				</group>
 			</page>
 		</page>
-                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='product_id']" position="after">
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/notebook/page[@string='Freight and Transportation']/group/field[@name='line_accepted']" position="after">
                         <field name="invoiced_qty" />
                 </xpath>
 
