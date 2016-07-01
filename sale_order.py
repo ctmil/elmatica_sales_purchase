@@ -7,6 +7,7 @@ from datetime import timedelta
 
 _logger = logging.getLogger(__name__)
 
+
 class sale_order(models.Model):
     _inherit = 'sale.order'
 
