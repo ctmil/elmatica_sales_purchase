@@ -91,7 +91,6 @@ class sale_advance_payment_inv(models.TransientModel):
                 return {'type': 'ir.actions.act_window_close'}
 
             res = self.make_invoices(lines)
-	    import pdb;pdb.set_trace()
             # create the final invoices of the active sales orders
             ######## originalen res = sale_ids.manual_invoice()
             #res = sale_obj.manual_invoice(cr, uid, sale_ids, context)
