@@ -7,6 +7,8 @@ from openerp import workflow
 import logging
 
 tooling_products = ['[TOOLING]','NRE']
+_logger = logging.getLogger(__name__)
+
 
 def find_originators(sale_ids):
     # mapping from originator to dest
@@ -38,7 +40,6 @@ class sale_advance_payment_inv(models.TransientModel):
         assert self._context.get('active_model') == 'sale.order'
         sale_ids = self.env['sale.order'].browse(self._context.get('active_ids', []))
         sale_ids.ensure_one()
-	import pdb;pdb.set_trace()
         if self.advance_payment_method in ('all', 'services', 'delivered'):
             originators = find_originators(sale_ids)
             # Find previously invoiced lines
@@ -80,7 +81,6 @@ class sale_advance_payment_inv(models.TransientModel):
             elif self.advance_payment_method == 'services':
                 matching_lines = []
                 for line in lines:
-		    import pdb;pdb.set_trace()
                     matches = [x for x in tooling_products if line.name.find(x)==0]
                     if matches:
                         matching_lines.append(line)
@@ -91,7 +91,7 @@ class sale_advance_payment_inv(models.TransientModel):
                 return {'type': 'ir.actions.act_window_close'}
 
             res = self.make_invoices(lines)
-
+	    import pdb;pdb.set_trace()
             # create the final invoices of the active sales orders
             ######## originalen res = sale_ids.manual_invoice()
             #res = sale_obj.manual_invoice(cr, uid, sale_ids, context)
