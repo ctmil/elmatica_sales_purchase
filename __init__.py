@@ -1,5 +1,6 @@
 import models
 import sale_order
+import sale_order_line
 import purchase_order
 import purchase_old
 import custom_crm
