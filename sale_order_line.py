@@ -11,6 +11,21 @@ class sale_order_line(models.Model):
 	_inherit = 'sale.order.line'
 
 	@api.one
+	def _calc_invoiced_qty_v2(self):
+		return_value = 0
+		if self.product_id.is_pack:
+			for pack_line in self.product_id.wk_product_pack:
+				if pack_line.product_name.product_tmpl_id.ntty_id and pack_line.product_name.product_tmpl_id.ntty_id != '':
+					pcb_product = pack_line.product_name.id
+			invoices = self.env['account.invoice'].search([('origin','=',self.order_id.name)])
+			for invoice in invoices:
+				if invoice.state in ['open','paid']:
+					for line in invoice.invoice_line:
+						if line.product_id.id == pcb_product:
+							return_value = return_value + line.quantity
+		self.invoiced_qty = return_value	
+
+	@api.one
 	def _calc_delivered_qty_v2(self):
 		return_value = 0
 		if self.product_id.is_pack:
@@ -34,6 +49,7 @@ class sale_order_line(models.Model):
 		self.undelivered_qty = return_value	
 
 
+	invoiced_qty = fields.Float('Invoiced Qty', compute='_calc_invoiced_qty_v2')
 	delivered_qty = fields.Float('Delivered', compute='_calc_delivered_qty_v2')
 	undelivered_qty = fields.Float('Undelivered', compute='_calc_undelivered_qty_v2')
  
