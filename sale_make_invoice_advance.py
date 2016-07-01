@@ -27,7 +27,7 @@ def find_originators(sale_ids):
 
 class sale_advance_payment_inv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"
-    advance_payment_method = fields.Selection(selection_add=[('services', 'Invoice Tooling'),
+    advance_payment_method = fields.Selection(selection_add=[('services', 'Invoice Tooling/NRE'),
                                                              ('delivered', 'Invoice Delivered Goods')])
 
     @api.multi
