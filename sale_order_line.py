@@ -33,7 +33,7 @@ class sale_order_line(models.Model):
 
 
 	delivered_qty = fields.Float('Delivered', compute='_calc_delivered_qty_v2')
-	undelivered_qty = fields.Float('Undelivered', compute='_calc_undelivered_qty')
+	undelivered_qty = fields.Float('Undelivered', compute='_calc_undelivered_qty_v2')
  
 
 
