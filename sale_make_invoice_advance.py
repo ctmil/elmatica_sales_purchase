@@ -64,9 +64,10 @@ class sale_advance_payment_inv(models.TransientModel):
                 matching_lines = []
                 for line in lines:
                     if line.delivered_qty and line.undelivered_qty:
+			#import pdb;pdb.set_trace()
                         previously_invoiced = collect(line)
                         l2 = line.copy()
-                        qty_to_invoice = round(line.delivered_qty) #  - previously_invoiced)
+                        qty_to_invoice = round(line.delivered_qty - previously_invoiced)
                         assert qty_to_invoice > 0
                         l2.invoiced_qty = qty_to_invoice
                         line.product_uom_qty -= qty_to_invoice
