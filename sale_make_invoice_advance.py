@@ -43,6 +43,18 @@ class sale_advance_payment_inv(models.TransientModel):
         if self.advance_payment_method in ('all', 'services', 'delivered'):
             originators = find_originators(sale_ids)
             # Find previously invoiced lines
+            def collect_v2(line, zum=0):
+                if zum:
+                    assert line.invoiced_qty
+		if line.sale_id:
+		    invoices = self.env['account.invoice'].search([('origin','=',line.sale_id.name),('state','in',['open','paid'])])
+		    for invoice in invoices:
+			for line_inv in invoice.invoice_line:
+				if line_inv.product_id.id == line.product_id.id:
+					zum = zum + line.quantity
+			
+                return zum
+		
             def collect(line, zum=0):
                 if zum:
                     assert line.invoiced_qty
@@ -65,7 +77,7 @@ class sale_advance_payment_inv(models.TransientModel):
                 for line in lines:
                     if line.delivered_qty and line.undelivered_qty:
 			#import pdb;pdb.set_trace()
-                        previously_invoiced = collect(line)
+                        previously_invoiced = collect_v2(line)
                         l2 = line.copy()
                         qty_to_invoice = round(line.delivered_qty - previously_invoiced)
                         assert qty_to_invoice > 0
