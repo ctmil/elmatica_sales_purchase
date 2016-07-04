@@ -80,7 +80,8 @@ class sale_advance_payment_inv(models.TransientModel):
                         previously_invoiced = collect_v2(line)
                         l2 = line.copy()
                         qty_to_invoice = round(line.delivered_qty - previously_invoiced)
-                        assert qty_to_invoice > 0
+			if qty_to_invoice <= 0:
+		               raise exceptions.ValidationError(_('No pcbs transferred to invoice'))
                         l2.invoiced_qty = qty_to_invoice
                         line.product_uom_qty -= qty_to_invoice
                         l2.product_uom_qty = qty_to_invoice
