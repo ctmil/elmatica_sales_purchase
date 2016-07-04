@@ -51,7 +51,7 @@ class sale_advance_payment_inv(models.TransientModel):
 		    for invoice in invoices:
 			for line_inv in invoice.invoice_line:
 				if line_inv.product_id.id == line.product_id.id:
-					zum = zum + line.quantity
+					zum = zum + line_inv.quantity
 			
                 return zum
 		
