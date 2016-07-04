@@ -101,6 +101,9 @@ class sale_advance_payment_inv(models.TransientModel):
 
                 lines = matching_lines
                 #lines = [x for x in lines if x.name.find('[TOOLING]')!=0 ]
+	    else:
+                raise exceptions.ValidationError(_('Option not available for invoicing'))
+		
             if not lines:
                 return {'type': 'ir.actions.act_window_close'}
 
