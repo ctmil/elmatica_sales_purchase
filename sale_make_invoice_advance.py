@@ -46,8 +46,8 @@ class sale_advance_payment_inv(models.TransientModel):
             def collect_v2(line, zum=0):
                 if zum:
                     assert line.invoiced_qty
-		if line.sale_id:
-		    invoices = self.env['account.invoice'].search([('origin','=',line.sale_id.name),('state','in',['open','paid'])])
+		if line.order_id:
+		    invoices = self.env['account.invoice'].search([('origin','=',line.order_id.name),('state','in',['open','paid'])])
 		    for invoice in invoices:
 			for line_inv in invoice.invoice_line:
 				if line_inv.product_id.id == line.product_id.id:
