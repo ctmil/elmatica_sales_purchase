@@ -29,6 +29,11 @@ class sale_advance_payment_inv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"
     advance_payment_method = fields.Selection(selection_add=[('services', 'Invoice Tooling/NRE'),
                                                              ('delivered', 'Invoice Delivered Goods')])
+    advance_payment_method = fields.Selection(selection_del=[('services', 'Invoice Tooling/NRE')])
+    #'advance_payment_method':fields.selection(
+    #        [('all', 'Invoice the whole sales order'), ('percentage','Percentage'), ('fixed','Fixed price (deposit)'),
+    #            ('lines', 'Some order lines')],
+
 
     @api.multi
     def create_invoices(self):
