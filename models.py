@@ -41,11 +41,15 @@ class sale_order_line(models.Model):
 		else:
 			return_value = 0
 			if self.product_id.is_pack:
+				max_leadtime = 0
 				for product in self.product_id.wk_product_pack:
 					if product.product_name.product_tmpl_id.ntty_id and product.product_name.product_tmpl_id.ntty_id != '':
 						return_value = return_value + self.pcb_leadtime 
 					else:
-						return_value = return_value + product.product_name.sale_delay 
+						if max_leadtime > product.product_name.sale_delay:
+							max_leadtime = product.product_name.sale_delay
+				if max_leadtime > 0:
+					return_value = return_value + max_leadtime
 				self.calculated_leadtime = return_value
 			else:
 				return_value = self.product_id.sale_delay 
