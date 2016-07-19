@@ -214,6 +214,9 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		else:
 		    	if lead.partner_id.parent_id.procurement_contact:
 				vals['procurement_contact'] = lead.partner_id.parent_id.procurement_contact.id
+	    if lead.product_name:
+		if lead.product_name.product_tmpl_id.ntty_id:
+			vals['ntty_id'] = lead.product_name.product_tmpl_id.ntty_id
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
