@@ -112,9 +112,10 @@ class sale_order(models.Model):
 			else:
 				line_product = line.product_id.id
 				pricelist = sale.selected_supplier.property_product_pricelist_purchase
-				return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
-				 context = {'uom': 1, 'date': str(date.today())})
-				cost_unit = return_pricelist[pricelist.id]
+				#return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
+				 #context = {'uom': 1, 'date': str(date.today())})
+				#cost_unit = return_pricelist[pricelist.id]
+				cost_unit = line.unit_cost
                         d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
 			d_requested_delivery = d_requested_date + datetime.timedelta(days=2)
 			if d_requested_delivery.weekday() == 5:
@@ -227,3 +228,6 @@ class sale_order(models.Model):
 	else:
 		self.has_purchase_order = False
 
+    def action_view_invoice(self, cr, uid, ids, context=None):
+	import pdb;pdb.set_trace()
+	return None
