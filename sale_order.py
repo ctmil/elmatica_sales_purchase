@@ -93,6 +93,7 @@ class sale_order(models.Model):
 					return_pricelist = pricelist.price_get(line_product, line.product_uom_qty or 1.0, partner_id or False,\
 						 context = {'uom': line.product_uom.id, 'date': str(date.today())})
 					cost_unit = return_pricelist[pricelist.id]
+					cost_unit = line.unit_cost
 					if pricelist.currency_id.id != sale.currency_id.id:
 						cost_unit = cost_unit / line.quoted_rate
 					break
@@ -112,10 +113,10 @@ class sale_order(models.Model):
 			else:
 				line_product = line.product_id.id
 				pricelist = sale.selected_supplier.property_product_pricelist_purchase
-				#return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
-				 #context = {'uom': 1, 'date': str(date.today())})
-				#cost_unit = return_pricelist[pricelist.id]
-				cost_unit = line.unit_cost
+				return_pricelist = pricelist.price_get( line_product, line.product_uom_qty or 1.0, sale.selected_supplier.id or False,\
+				context = {'uom': 1, 'date': str(date.today())})
+				cost_unit = return_pricelist[pricelist.id]
+				#cost_unit = line.unit_cost
                         d_requested_date = datetime.datetime.strptime(sale.requested_date, "%Y-%m-%d").date()
 			d_requested_delivery = d_requested_date + datetime.timedelta(days=2)
 			if d_requested_delivery.weekday() == 5:
