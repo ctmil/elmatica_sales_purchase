@@ -20,7 +20,6 @@ class mail_compose_message(models.TransientModel):
         if self._context.get('active_model') != 'stock.picking':
             return res
 
-	import pdb;pdb.set_trace()
         active_id = self._context.get('active_id', None)
         assert active_id
         picking = self.env['stock.picking'].browse([active_id])[0]
@@ -76,7 +75,6 @@ class stock_picking(models.Model):
         """
         Copied from action_invoice_sent.Opens up mail compose dialog
         """
-	import pdb;pdb.set_trace()
         if 'template' in self._context:
             template_name = self._context['template']
         else:
