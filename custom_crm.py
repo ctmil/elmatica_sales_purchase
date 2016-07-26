@@ -141,7 +141,6 @@ class crm_make_sale(osv.osv_memory):
                     'view_mode': 'form',
                     'res_model': 'sale.order',
                     'view_id': view_id,
-                    'view_id': 'sale.view_order_form',
                     'type': 'ir.actions.act_window',
                     'name' : ('Quotation'),
                     'res_id': new_ids and new_ids[0]
