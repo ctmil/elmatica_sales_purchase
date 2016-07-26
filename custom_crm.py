@@ -135,7 +135,8 @@ class crm_make_sale(osv.osv_memory):
                     'view_type': 'form',
                     'view_mode': 'form',
                     'res_model': 'sale.order',
-                    'view_id': False,
+                    #'view_id': False,
+		    'view_id': 'elmatica_sales_purchase.view_order_form_sales_purchase_custom',
                     'type': 'ir.actions.act_window',
                     'name' : ('Quotation'),
                     'res_id': new_ids and new_ids[0]
