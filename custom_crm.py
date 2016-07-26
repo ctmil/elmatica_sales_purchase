@@ -129,13 +129,18 @@ class crm_make_sale(osv.osv_memory):
                 case_obj.case_mark_won(cr, uid, data, context=context)
             if not new_ids:
                 return {'type': 'ir.actions.act_window_close'}
+	    view_id = self.pool.get('ir.ui.view').search(cr,uid,[('xml_id','=','sale.order.form')],order='id asc',limit=1)
+	    if view_id:
+		view_id = view_id
+	    else:
+		view_id = False
             if len(new_ids)<=1:
                 value = {
                     'domain': str([('id', 'in', new_ids)]),
                     'view_type': 'form',
                     'view_mode': 'form',
                     'res_model': 'sale.order',
-                    #'view_id': False,
+                    'view_id': view_id,
                     'view_id': 'sale.view_order_form',
                     'type': 'ir.actions.act_window',
                     'name' : ('Quotation'),
@@ -147,7 +152,8 @@ class crm_make_sale(osv.osv_memory):
                     'view_type': 'form',
                     'view_mode': 'tree,form',
                     'res_model': 'sale.order',
-                    'view_id': 'sale.view_order_form',
+                    #'view_id': 'sale.view_order_form',
+		    'view_id': view_id,
                     'type': 'ir.actions.act_window',
                     'name' : ('Quotation'),
                     'res_id': new_ids
