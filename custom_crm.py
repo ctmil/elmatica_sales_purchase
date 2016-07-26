@@ -129,7 +129,7 @@ class crm_make_sale(osv.osv_memory):
                 case_obj.case_mark_won(cr, uid, data, context=context)
             if not new_ids:
                 return {'type': 'ir.actions.act_window_close'}
-	    view_id = self.pool.get('ir.ui.view').search(cr,uid,[('xml_id','=','sale.order.form')],order='id asc',limit=1)
+	    view_id = self.pool.get('ir.ui.view').search(cr,uid,[('name','=','sale.order.form')],order='id asc',limit=1)
 	    if view_id:
 		view_id = view_id
 	    else:
