@@ -104,20 +104,6 @@
 		<button name="purchase_confirm" position="attributes">
 			<attribute name="invisible">0</attribute>
 		</button>
-                <xpath expr="//form[@string='Purchase Order']/sheet/notebook/page[@string='Products']/field[@name='order_line']/tree[@string='Purchase Order Lines']/field[@name='date_planned']" position="after">
-			<field name="collies" />
-                     <!-- form string="Purchase Order Lines">
-                        <group string="Shipment Information">
-                                <field name="date_code" />
-                                <field name="units_shipped" />
-                                <field name="weight" />
-                                <field name="collies" />
-                                <field name="batch_number" />
-                                <field name="tracking_number" />
-                                <field name="state" invisible="1" />
-                        </group>
-                     </form -->
-                </xpath>
             </field>
 	</record>
 
