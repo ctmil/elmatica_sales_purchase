@@ -87,20 +87,20 @@ https://github.com/odoo/odoo/issues/4359
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Elmatica Part Number:</div>
-                        <div class="col-xs-4 text-left" t-esc="get_elmatica_part_number(o)" />
+                        <div class="col-xs-4 text-left" t-esc="o.elmatica_part_number" />
                     </div>
                     <div class="btn row col-xs-12"/>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Quantity:</div>
-                        <div class="col-xs-4 text-left" t-esc="get_quantity(o)" />
+                        <div class="col-xs-4 text-left" t-esc="o.quantity" />
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">RoHS2 Compliant *:</div>
-                        <div class="col-xs-4 text-left" t-esc="get_rohs(o)" />
+                        <div class="col-xs-4 text-left" t-esc="no" />
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">UL Compliant:</div>
-                        <div class="col-xs-4 text-left" t-esc="get_ul(o)" />
+                        <div class="col-xs-4 text-left" t-esc="no" />
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Date (MM/DD/YYYY):</div>

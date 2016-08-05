@@ -119,7 +119,9 @@ class stock_picking(models.Model):
 	return 'no'
 
     customer_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
+    elmatica_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
     customer_part_name = fields.Char('Customer Part Name',compute=get_customer_part_name)
+    quantity = fields.Integer('Quantity',compute=get_quantity)
 
  
     @api.multi
