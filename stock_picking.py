@@ -8,7 +8,7 @@ import logging
 from iso3166 import countries
 _logger = logging.getLogger(__name__)
 
-"""
+
 class mail_compose_message(models.TransientModel):
     #_inherit = 'email_template.wizard.mail_compose_message'
     #_name = 'elmatica_invoice.mail.compose.message'
@@ -28,8 +28,12 @@ class mail_compose_message(models.TransientModel):
         if self._context.get('active_model') == 'res.partner' and self._context.get('active_ids'):
             res.update({'partner_ids': self._context.get('active_ids')})
 
-        reports_to_attach = [('ML', 'elmatica_invoice.report_mat_label'),
-                             ('DOC', 'elmatica_invoice.report_doc'),
+        #reports_to_attach = [('ML', 'elmatica_invoice.report_mat_label'),
+        #                     ('DOC', 'elmatica_sales_purchase.report_letter_of_conformity'),
+        #                     ]
+        reports_to_attach = [('SL', 'elmatica_wms.report_stock_picking_shipping_label_template'),
+                             ('PS', 'elmatica_wms.report_stock_picking_20_template'),
+                             ('DOC', 'elmatica_sales_purchase.elm_report_doc_document'),
                              ]
         # reports_to_attach = ['elmatica_wms.report_stock_shipping_label_action',]
         attachments = []
@@ -68,7 +72,7 @@ class mail_compose_message(models.TransientModel):
         #assert False
         return res
 
-"""
+
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
