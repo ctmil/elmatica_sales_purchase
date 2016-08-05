@@ -77,6 +77,17 @@ class mail_compose_message(models.TransientModel):
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
 
+    @api.one
+    def get_customer_name(self):
+	import pdb;pdb.set_trace()
+	return_value = 'N/A'
+	if self.origin:
+	    purchase_order = self.env['purchase.order'].search([('name','=',self.origin)])
+	    if purchase_order:
+		if purchase_order[0].sale_id:
+		    return_value = purchase_order[0].sale_id.partner_id.name
+	return return_value  
+ 
     @api.multi
     def action_send_shipping_info(self):
         """
