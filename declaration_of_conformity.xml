@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+http://www.sitepoint.com/create-invoice-twitter-bootstrap-part-2/?utm_source=sitepoint&utm_medium=articleseries&utm_campaign=nextpost&utm_term=html-css
+
+IMPORTANT
+https://github.com/odoo/odoo/issues/4359
+
+
+-->
+<openerp>
+    <data>
+
+        <template id="elm_report_doc_document">
+            <!-- <t t-call="elmatica_invoice.elm_mat_label_external_layout"> -->
+            <t t-call="report.external_layout">
+                <div class="header">
+                    <div class="row col-xs-16 text-center">
+                        <img src="/elmatica_invoice/static/src/img/elmatica_logo_wide.png"
+                             class="ms-6 offset-xs-3 img img-responsive logo"/>
+                    </div>
+                    <div class="row zero_min_height">
+                        <div class="col-xs-12">
+                            <div style="border-bottom: 1px solid black;"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <t t-call="report.minimal_layout"> -->
+                <div class="page">
+
+                    <div class="container">
+                        <div class="col-xs-12 text-center">DECLARATION OF CONFORMITY</div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px solid black;"></div>
+                            </div>
+                        </div>
+                        <div class="btn row col-xs-12" style="height:50px;"></div>
+                        <div class="text-center">
+                            <h3>We hereby confirm that</h3>
+                            the components detailed herein have been manufactured, inspected and tested in
+                            conformity with the acknowledged
+                            specification in the purchasing order, and are released with my authority.
+                        </div>
+                        <div class="btn row col-xs-12"/>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Customer:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_customer_name(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Customer PO:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_customer_po(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Customer Part Number:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_customer_part_number(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Customer Part Name:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_customer_part_name(o)" />
+                    </div>
+                    <div class="btn row col-xs-12"/>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Manufacturer:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_manufacturer(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Country of origin:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_country_of_origin(o)" />
+                    </div>
+                    <div class="btn row col-xs-12"/>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Elmatica Order ref:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_elmatica_order_ref(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Elmatica Part Number:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_elmatica_part_number(o)" />
+                    </div>
+                    <div class="btn row col-xs-12"/>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Quantity:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_quantity(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">RoHS2 Compliant *:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_rohs(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">UL Compliant:</div>
+                        <div class="col-xs-4 text-left" t-esc="get_ul(o)" />
+                    </div>
+                    <div class="btn row col-xs-10">
+                        <div class="col-xs-4 text-right">Date (MM/DD/YYYY):</div>
+                        <div class="col-xs-4 text-left" t-esc="get_date(o)" />
+                    </div>
+                    <div class="btn row col-xs-12"/>
+                    <div class="btn row col-xs-12">
+                        <div class="col-xs-4 text-right">Signature::</div>
+                        <div class="col-xs-8 sign">
+                            <div>
+                                <!-- <div class="col-xs-12 sign"> --><!--  style="width:300pt;height:50pt"> -->
+                                <div class="col-xs-8">
+                                    <img src="/elmatica_invoice/static/src/img/qc_signature.png"
+                                         class="img img-responsive logo"/>
+                                </div>
+                                <div class="col-xs-8 text-center">Jarl Erlend Aas</div>
+                                <div class="col-xs-8 text-center">Chief Quality Officer</div>
+                            </div>
+                        </div>
+
+                        <!-- should be at the bottom left -->
+                        <div class="btn row col-xs-12"/>
+                        <div class="btn row col-xs-12"/>
+                        <div class="btn row col-xs-12">
+                            <b class="col-xs-12 text-left small">*&amp;nbsp;About RoHS2 Compliance:</b>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 text-left small">Lead (Pb): &amp;lt; 1000 ppm</div>
+                            <div class="col-xs-12 text-left small">Mercury (Hg): &amp;lt; 100 ppm</div>
+                            <div class="col-xs-12 text-left small">Cadmium (Cd): &amp;lt; 100 ppm</div>
+                            <div class="col-xs-12 text-left small">Hexavalent Chromium (Cr VI) &amp;lt; 1000 ppm</div>
+                            <div class="col-xs-12 text-left small">Polybrominated Biphenyls (PBB): 1000 ppm</div>
+                            <div class="col-xs-12 text-left small">Polybrominated Diphenyl Ethers (PBDE):&amp;lt; 1000 ppm</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="doc_external_layout_header" inherit_id="report.external_layout_header">
+    <xpath expr="//div[@class='header']" position="replace">
+        </xpath>
+</template>
+
+        <!-- https://github.com/anubia/anubia-wiki/wiki/Add-custom-CSS-to-Qweb-reports -->
+<template id="layout" inherit_id="report.layout">
+    <xpath expr="//style" position="after">
+        <link href="/elmatica_invoice/static/src/css/doc.css" rel="stylesheet"/>
+    </xpath>
+</template>
+
+<template id="minimal_layout" inherit_id="report.minimal_layout">
+    <xpath expr="//style" position="after">
+        <link href="/elmatica_invoice/static/src/css/doc.css" rel="stylesheet"/>
+    </xpath>
+</template>
+
+
+<template id="stail" inherit_id="report.minimal_layout">
+    <xpath expr="//head" position="inside">
+        HELSOIKKE
+    </xpath>
+</template>
+
+        <!--
+<template id="stail" inherit_id="report.style">
+
+.mytable-bordered {
+  border: 30pt solid yellow;
+}
+.mytable-bordered > thead > tr > th,
+.mytable-bordered > tbody > tr > th,
+.mytable-bordered > tfoot > tr > th,
+.mytable-bordered > thead > tr > td,
+.mytable-bordered > tbody > tr > td,
+.mytable-bordered > tfoot > tr > td {
+  border: 30pt solid yellow;
+}
+</template>
+
+<template id="gurba" inherit_id="report.layout">
+    GURBA
+</template>
+
+<template id="gurba2" inherit_id="web.layout" primary="True">
+    GURBA2
+
+    <xpath expr="//head" position="inside">
+        <link rel="stylesheet" href="/elmatica_invoice/static/src/css/mat_label.css"/>
+            </xpath>
+
+</template>
+-->
+<template id="mat_barcode">
+
+    <div class="col-xs-3 pull-left">
+
+    <img t-att-src="'/report/datamatrix?value=%s&amp;width=%s&amp;height=%s' % (o.env['mat_encoder'].encode_mat_frame(o.get_mat_labeldata()), 210, 210)" class="img" />
+    <!-- <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', o.name, 200, 200)" class="img-responsive" /> -->
+                        <!-- <img t-if="not o.loc_barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:300px;height:50px"/>-->
+    </div>
+</template>
+
+
+
+<template id="mat_label1">
+
+<t t-set="labeldata" t-value="o.get_mat_labeldata()" />
+<div class="col-xs-offset-5">
+                            <div class="row">
+                                <table class="labelTable">
+                                    <tbody>
+                                    <tr>
+                                        <td class="labelTable">Part no:</td><td class="labelTable"><t t-esc="labeldata['customer_part_number']" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">Quantity:</td><td class="labelTable"><t t-esc="labeldata['quantity']" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">Index:</td><t t-esc="labeldata['revision_level']" />
+                                        <td class="labelTable"></td><td class="labelTable">MS-Level:</td><td class="labelTable"><t t-esc="labeldata['ms_level']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">Add.info</td><td class="labelTable"><t t-esc="labeldata['add_part_info']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">Date Code:</td><td class="labelTable"><t t-esc="labeldata['date_of_manufacture']"/></td>
+                                        <td class="labelTable">Expiry Date:</td><td class="labelTable"><t t-esc="labeldata['expiration_date']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">Man.Loc:</td><td class="labelTable"><t t-esc="labeldata['manufacturer_location']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">1. Batch:</td><td class="labelTable"><t t-esc="labeldata['batch_no1']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="labelTable">2. Batch:</td><td class="labelTable"><t t-esc="labeldata['batch_no2']"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+</div>
+    </div>
+</template>
+
+<template id="mat_label2">
+
+    <div>
+    <div class="row col-xs-offset-1">
+        <t t-set="labeldata" t-value="o.get_mat_labeldata()" />
+        <table class="labelTable">
+            <tbody>
+                <tr>
+            <td class="labelTable">Part name:</td><td class="labelTable"><t t-esc="labeldata['part_name']"/></td>
+            </tr>
+                <tr>
+            <td class="labelTable">Shipping note:</td><td class="labelTable"><t t-esc="labeldata['shipping_number']"/></td>
+                    <td class="labelTable">Purchase:</td><td class="labelTable"><t t-esc="labeldata['po_number']"/></td>
+            </tr
+                    ><tr>
+            <td class="labelTable">Supplier-ID:</td><td class="labelTable"><t t-esc="labeldata['supplier_id']"/></td>
+                <td class="labelTable">Package-ID:</td><td class="labelTable"><t t-esc="labeldata['package_id']"/></td>
+            </tr>
+                <tr>
+            <td class="labelTable">Ord.Code:</td><td class="labelTable"><t t-esc="labeldata['ordering_code']"/></td>
+            </tr>
+                <tr>
+            <td class="labelTable">Man.Part-No.:</td><td class="labelTable"><t t-esc="labeldata['manufacturer_part_number']" /></td>
+            </tr>
+                <tr>
+            <td class="labelTable">Supplier-Data:</td><td class="labelTable"><t t-esc="labeldata['supplier_data']"/></td>
+                    <div t-if="labeldata['RoHS']" class="pull-right">RoHS</div>
+            </tr>
+                <tr>
+            <td class="labelTable">Supplier:</td><td class="labelTable"><t t-esc="labeldata['supplier_name']"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</template>
+<!-- real deal, again -->
+
+
+
+<template id="report_doc">
+    <t t-call="elmatica_invoice.doc_html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'elmatica_invoice.elm_report_doc_document')"/>
+        </t>
+    </t>
+</template>
+
+
+
+
+
+<!--
+
+<template inherit_id="report.layout" id="elm_layoutBALLE2" primary="True">
+    <xpath expr="//head" position="inside">
+        GURBANO
+        <link rel="stylesheet" href="/elmatica_invoice/static/src/css/mat_label2.css"/>
+    </xpath>
+</template>
+
+<template inherit_id="report.minimal_layout" id="elm_minimal" primary="True">
+    <xpath expr="//head" position="inside">
+        GURBANOOGSAA
+        <link rel="stylesheet" href="/elmatica_invoice/static/src/css/mat_label2.css"/>
+    </xpath>
+
+</template>
+-->
+
+
+<!--
+<template id="elm_mat_label_external_layout">
+    <! - - Multicompany  - ->
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+
+    <t t-call="elmatica_invoice.elm_mat_label_external_layout_header" />
+
+      <t t-raw="0" />
+
+
+    <t t-call="elmatica_invoice.elm_mat_label_external_layout_footer" />
+</template>
+
+
+<template id="external_layout" primary="True" inherit_id="report.external_layout">
+
+    <xpath expr="//t[@t-call='report.external_layout_header']" position="replace">
+        <t t-call="elmatica_invoice.external_layout_header">
+            <t t-raw="0"/>
+        </t>
+    </xpath>
+</template>
+
+<template id="external_layout_header" inherit_id="report.external_layout_header">
+
+    <xpath expr="//head" position="inside">
+        GURBA3
+        <link rel="stylesheet" href="/elmatica_invoice/static/src/css/mat_label2.css"/>
+            </xpath>
+        </template>
+
+<!- -
+<template id="elm_mat_label_external_layout_header">
+
+    <xpath expr="//head" position="inside">
+        GURBA3
+        <link rel="stylesheet" href="/elmatica_invoice/static/src/css/mat_label.css"/>
+            </xpath>
+    <div class="header">
+        <div class="row" style=" position: relative;">
+            <! - - position: absolute; bottom: 0; right: 0; - ->
+            <div class="col-xs-4 col-xs-offset-4" style="position: absolute; bottom: 0;">
+                <h2><span t-field="company.name" /></h2>
+            </div>
+            <div class="col-xs-2 pull-right">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="position: relative; right: 120px;"/>
+            </div>
+
+
+        </div>
+    </div>
+</template>
+-->
+        <!--
+<template id="elm_mat_label_external_layout_footer">
+    <div class="footer">
+        <div class="text-center" style="border-top: 1px solid black;">
+            <div t-if="company.name == 'Elmatica GmbH' ">
+Elmatica GmbH - Max-Eyth-Strasse 2, Freising 85354, Germany<br/>
+Co.reg.no.: 6076405083 VAT no.: DE284104533 Handelsregistereintrag:HRB 198426 München<br/>
+Tel: +47-22098700 Mail: invoice@elmatica.com Web: www.elmatica.com<br/>
+Bank: Danske Bank Sort code: 20320500 / Account no.: 4989175742 IBAN no.: DE02203205004989175742 SWIFT code: DABADEHH<br/>
+Geschäftsführer: Didrik Bech, Arild Bakke<br/>
+            </div>
+            <div t-if="company.name == 'Elmatica AS' ">
+Elmatica AS - Hesteskoen 7 - 0493 Oslo - Corp.reg.no.: NO 921513240 MVA Foretaksregisteret<br/>
+Tel: 0047 - 22 09 87 00 - Mail: ingerlise.kogstad@elmatica.com - Web: www.elmatica.com<br/>
+Bank: Danske Bank - IBAN no.: NO0581010829283 - SWIFT code: DABANO22<br/>
+            </div>
+
+            <div t-if="company.name == 'Elmatica AB' ">
+Elmatica AB - Tegnèrgatan 15, 2tr. - 11140 Stockholm - Org.no.: 556621-4168 Momsnr: SE5566214801<br/>
+Tel: 0046-508 615 80 - E-post: didrik.bech@elmatica.com<br/>
+BankGiro: 5400-7828 Kontonummer: 12200140568 - IBAN:SE8412000000012200140568 - SWIFT:DABASESX<br/>
+            </div>
+        </div>
+    </div>
+</template> -->
+        </data>
+    </openerp>

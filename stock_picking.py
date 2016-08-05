@@ -8,6 +8,7 @@ import logging
 from iso3166 import countries
 _logger = logging.getLogger(__name__)
 
+"""
 class mail_compose_message(models.TransientModel):
     #_inherit = 'email_template.wizard.mail_compose_message'
     #_name = 'elmatica_invoice.mail.compose.message'
@@ -66,6 +67,8 @@ class mail_compose_message(models.TransientModel):
 
         #assert False
         return res
+
+"""
 
 class stock_picking(models.Model):
     _inherit = 'stock.picking'
