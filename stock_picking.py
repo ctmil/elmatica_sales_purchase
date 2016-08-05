@@ -79,7 +79,6 @@ class stock_picking(models.Model):
 
     @api.one
     def get_customer_name(self):
-	import pdb;pdb.set_trace()
 	return_value = 'N/A'
 	if self.origin:
 	    purchase_order = self.env['purchase.order'].search([('name','=',self.origin)])
@@ -87,6 +86,41 @@ class stock_picking(models.Model):
 		if purchase_order[0].sale_id:
 		    return_value = purchase_order[0].sale_id.partner_id.name
 	return return_value  
+
+    @api.one
+    def get_customer_part_number(self):
+	if self.move_lines:
+	    for move_line in self.move_lines:
+	        if move_line.product_id.ntty_id != '':
+		    self.customer_part_number = move_line.product_id.default_code
+
+    @api.one
+    def get_customer_part_name(self):
+	if self.move_lines:
+	    for move_line in self.move_lines:
+	        if move_line.product_id.ntty_id != '':
+		    self.customer_part_name = move_line.product_id.name_template
+
+    @api.one
+    def get_quantity(self):
+	return_value = 0
+	if self.move_lines:
+	    for move_line in self.move_lines:
+		if move_line.product_id.ntty_id != '':
+		    return_value = return_value + move_line.product_qty
+	return return_value
+
+    @api.one
+    def get_rohs(self):
+	return 'no'
+
+    @api.one
+    def get_ul(self):
+	return 'no'
+
+    customer_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
+    customer_part_name = fields.Char('Customer Part Name',compute=get_customer_part_name)
+
  
     @api.multi
     def action_send_shipping_info(self):
