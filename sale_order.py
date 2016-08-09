@@ -61,6 +61,7 @@ class sale_order(models.Model):
         	          'invoice_method': 'order',
                 	  'dest_address_id': sale.partner_shipping_id.id,
 			  'sale_order_id': sale.id,
+			  'sale_id': sale.id,
 			  'confirmed_date': None,
 			  'wkng_gerber': wkng_gerber,
 	                  }
