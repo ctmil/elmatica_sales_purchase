@@ -50,7 +50,15 @@
 		<page string="Other Information" position="after">
 			<page string="Purchase Orders" >
 				<field name="purchase_ids" readonly="1"
-					attrs="{'invisible':[('state','in',['draft','cancel'])]}"/>
+					attrs="{'invisible':[('state','in',['draft','cancel'])]}">
+					<tree string="Purchase Orders">
+						<field name="name" />
+						<field name="order_type" />
+						<field name="date_order" />
+						<field name="partner_id" />
+						<field name="amount_total" />
+					</tree>
+				</field>
 				<group>
 					<field name="partner_wkng_gerber" />
 					<field name="wkng_gerber" />
