@@ -50,8 +50,7 @@
 		<page string="Other Information" position="after">
 			<page string="Purchase Orders" >
 				<!-- attrs="{'invisible':[('state','in',['draft','cancel'])]}" -->
-				<field name="purchase_ids" readonly="1"
-					attrs="{'invisible':[('state','in',['draft','cancel'])]}" >
+				<field name="purchase_ids" readonly="1">
 					<tree string="Purchase Orders">
 						<field name="name" />
 						<field name="order_type" />
