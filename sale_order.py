@@ -230,6 +230,6 @@ class sale_order(models.Model):
 	else:
 		self.has_purchase_order = False
 
-    def action_view_invoice(self, cr, uid, ids, context=None):
-	import pdb;pdb.set_trace()
-	return None
+
+    #def action_view_invoice(self, cr, uid, ids, context=None):
+	#return None
