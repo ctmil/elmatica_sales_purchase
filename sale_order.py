@@ -59,7 +59,7 @@ class sale_order(models.Model):
                 	  'location_id': location_ref,
 	                  'pricelist_id': sale.selected_supplier.property_product_pricelist_purchase.id,
         	          'invoice_method': 'order',
-                	  'dest_address_id': sale.partner_shipping_id.id,
+                	  #'dest_address_id': sale.partner_shipping_id.id,
 			  'sale_order_id': sale.id,
 			  'sale_id': sale.id,
 			  'confirmed_date': None,
