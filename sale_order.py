@@ -36,7 +36,7 @@ class sale_order(models.Model):
 
             customer_location = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_stock_customer')])[0]
             #pricelist=self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
-            location_ref = int(customer_location.value_reference.split(',')[-1])
+            #location_ref = int(customer_location.value_reference.split(',')[-1])
             #pricelist_ref = int(pricelist.value_reference.split(',')[-1])
 
             # print "CUSTLOC", customer_location, location_ref, type(location_ref)
@@ -56,7 +56,7 @@ class sale_order(models.Model):
                 	  'currency_id': sale.selected_supplier.property_product_pricelist_purchase.currency_id.id,
 	                  #'name': sale.name,
         	          'partner_id': sale.selected_supplier.id,
-                	  'location_id': location_ref,
+                	  #'location_id': location_ref,
 	                  'pricelist_id': sale.selected_supplier.property_product_pricelist_purchase.id,
         	          'invoice_method': 'order',
                 	  #'dest_address_id': sale.partner_shipping_id.id,
