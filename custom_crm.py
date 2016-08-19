@@ -223,6 +223,10 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 	    if lead.product_name:
 		if lead.product_name.product_tmpl_id.ntty_id:
 			vals['ntty_id'] = lead.product_name.product_tmpl_id.ntty_id
+	    if 'section_id' not in vals.keys():
+		stage_id = self.env['crm.case.stage'].search([('name','=','TD Unassigned')])
+		if stage_id:
+			vals['stage_id'] = stage_id.id
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
