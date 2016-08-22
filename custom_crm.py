@@ -117,7 +117,7 @@ class crm_make_sale(osv.osv_memory):
                     vals['custom_message'] = partner.sale_warn_msg
                 new_id = sale_obj.create(cr, uid, vals, context=context)
                 sale_order = sale_obj.browse(cr, uid, new_id, context=context)
-		sale_line_obj.create(cr,uid,{'order_id':new_id,'product_id':product_name},context=None)
+		sale_line_obj.sudo().create(cr,uid,{'order_id':new_id,'product_id':product_name},context=None)
                 case_obj.write(cr, uid, [case.id], {'ref': 'sale.order,%s' % new_id})
 	        # result =  super(sale_order, self).onchange_partner_id(cr, uid, [sale_order.id], partner.id, context=context)
 	        result = sale_order.onchange_partner_id(partner.id, context=context)
