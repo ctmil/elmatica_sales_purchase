@@ -230,7 +230,8 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 			vals['stage_id'] = stage_id[0]
 	    else:
 		if not vals['section_id']:
-			stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('name','=','TD Unassigned')])
+			#stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('name','=','TD Unassigned')])
+			stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('sequence','=',10)])
 			if stage_id:
 				vals['stage_id'] = stage_id[0]
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
