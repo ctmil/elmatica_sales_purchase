@@ -224,7 +224,8 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		if lead.product_name.product_tmpl_id.ntty_id:
 			vals['ntty_id'] = lead.product_name.product_tmpl_id.ntty_id
 	    if 'section_id' not in vals.keys():
-		stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('name','=','TD Unassigned')])
+		#stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('name','=','TD Unassigned')])
+		stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('sequence','=',10)])
 		if stage_id:
 			vals['stage_id'] = stage_id[0]
 	    else:
