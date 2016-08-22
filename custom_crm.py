@@ -233,7 +233,7 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		stage_id = self.pool.get('crm.case.stage').search(cr,uid,[('sequence','=',10)])
 		if stage_id:
 			vals['stage_id'] = stage_id[0]
-	    vals['name'] = lead_obj.name + ' - 1 of ' + str(n_qty)
+	    vals['name'] = lead.name + ' - 1 of ' + str(n_qty)
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
