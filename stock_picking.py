@@ -118,10 +118,23 @@ class stock_picking(models.Model):
     def get_ul(self):
 	return 'no'
 
+    @api.one
+    def _default_dhl_declared_value(self):
+	import pdb;pdb.set_trace()
+	return_value = 0
+	if self.move_lines and self.sale_id:
+	    for move_line in self.move_lines:
+		for sale_line in self.sale_id.order_line:
+			if sale_line.original_pcb_line and \
+				(sale_line.original_pcb_line.product_id.id == move_line.product_id.id):
+			        return_value = return_value + (sale_line.price_unit * sale_line.product_uom_qty)
+	return return_value
+
     customer_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
     elmatica_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
     customer_part_name = fields.Char('Customer Part Name',compute=get_customer_part_name)
     quantity = fields.Integer('Quantity',compute=get_quantity)
+    dhl_declared_value = fields.Integer(string='DHL DeclaredValue',default=_default_dhl_declared_value)
 
  
     @api.multi
