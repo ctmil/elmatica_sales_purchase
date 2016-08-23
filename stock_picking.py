@@ -121,14 +121,15 @@ class stock_picking(models.Model):
     @api.one
     def _compute_dhl_declared_value(self):
 	return_value = 0
-	import pdb;pdb.set_trace()
+	#import pdb;pdb.set_trace()
 	if self.move_lines and self.sale_id:
 	    for move_line in self.move_lines:
-		for sale_line in self.sale_id.order_line:
-			if sale_line.product_id.is_pack:
-				for product_pack in sale_line.product_id.wk_product_pack:
-					if product_pack.product_name.id == move_line.product_id.id:
-					        return_value = return_value + (sale_line.price_unit * sale_line.product_uom_qty)
+		if  move_line.product_id.ntty_id != '':
+			for sale_line in self.sale_id.order_line:
+				if sale_line.product_id.is_pack:
+					for product_pack in sale_line.product_id.wk_product_pack:
+						if product_pack.product_name.id == move_line.product_id.id:
+						        return_value = return_value + (sale_line.unit_cost * sale_line.product_uom_qty)
 	self.dhl_declared_value = return_value
 
     customer_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
