@@ -124,7 +124,7 @@ class stock_picking(models.Model):
 	#import pdb;pdb.set_trace()
 	if self.move_lines and self.sale_id:
 	    for move_line in self.move_lines:
-		if  move_line.product_id.ntty_id != '':
+		if  move_line.product_id.ntty_id:
 			for sale_line in self.sale_id.order_line:
 				if sale_line.product_id.is_pack:
 					for product_pack in sale_line.product_id.wk_product_pack:

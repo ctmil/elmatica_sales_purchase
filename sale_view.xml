@@ -118,6 +118,7 @@
 			<field name="related_ppo" />
 			<field name="related_tpo" />
 			<field name="wkng_gerber" />
+			<field name="sale_order_id" />
 		</field>
 		<field name="date_order" position="attributes">
 			<attribute name="invisible">1</attribute>

@@ -65,6 +65,16 @@ class purchase_order(models.Model):
 			return_id = self.write(vals)
 		return True
 
+	@api.depends('sale_id')
+	@api.multi
+	def _calc_product_po(self):
+        	for order in self:
+			if order.related_tpo.id == self.id:
+				order.matching_product_po = order.sudo().sale_id.purchase_orders
+			else:
+				order.matching_product_po = None
+
+
 	#@api.one
 	#def _calculate_wkng_gerber(self):
 	#	if self.sale_id.wkng_gerber:
