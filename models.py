@@ -30,7 +30,7 @@ class sale_order(models.Model):
 			        self.shipping_days = days.shipping_days
 
 	shipping_days = fields.Integer(string='Shipping days',compute=_compute_shipping_days)
-	client_order_ref = fields.Char(string='PO',copy=False)
+	client_order_ref = fields.Char(string='CPO',copy=False)
 
 class sale_order_line(models.Model):
 	_inherit = 'sale.order.line'
