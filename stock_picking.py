@@ -119,7 +119,7 @@ class stock_picking(models.Model):
 	return 'no'
 
     @api.one
-    def _default_dhl_declared_value(self):
+    def _compute_dhl_declared_value(self):
 	return_value = 0
 	if self.move_lines and self.sale_id:
 	    for move_line in self.move_lines:
