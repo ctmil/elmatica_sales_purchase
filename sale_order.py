@@ -136,7 +136,7 @@ class sale_order(models.Model):
                         'sale_order': sale.id,
                         'price_unit': cost_unit,
                         #'leadtime': line.delay,
-                        'leadtime': line.calculated_leadtime,
+                        'leadtime': line.manufacturing_leadtime,
                         'sequence': line.sequence + index,
                         'product_qty' : line.product_uom_qty,
                         'company_id': line.company_id.id,
