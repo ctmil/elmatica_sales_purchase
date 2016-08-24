@@ -237,6 +237,10 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 				vals['stage_id'] = stage_id[0]
 	    original_name = lead.name
 	    vals['name'] = lead.name + ' - 1 of ' + str(n_qty)
+	    if w.title_action:
+		vals['title_action': w.title_action
+	    if w.date_action:
+		vals['date_action': w.date_action
             lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
