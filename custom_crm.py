@@ -54,6 +54,8 @@ class crm_make_sale(osv.osv_memory):
 
         for make in self.browse(cr, uid, ids, context=context):
             partner = make.partner_id
+            if not partner:
+                 raise osv.except_osv(_('Insufficient Data!'), _('No customer defined for this opportunity.'))
             partner_addr = partner_obj.address_get(cr, uid, [partner.id],
                     ['default', 'invoice', 'delivery', 'contact'])
             pricelist = partner.property_product_pricelist.id
