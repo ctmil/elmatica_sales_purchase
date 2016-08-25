@@ -37,7 +37,7 @@ class sale_order(models.Model):
             customer_location = self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_stock_customer')])[0]
 	    company_location = self.env['stock.location'].search([('company_id','=',sale.company_id.id),('usage','=','internal')])
             if not company_location:
-                raise exceptions.ValidationError(_('Company does not have default warehouse ocation set'))
+                raise exceptions.ValidationError(_('Company does not have default warehouse location set'))
             #pricelist=self.env['ir.property'].with_context(company_id=sale.company_id).search([('name','=','property_product_pricelist_purchase')])[0]
             #location_ref = int(customer_location.value_reference.split(',')[-1])
             #pricelist_ref = int(pricelist.value_reference.split(',')[-1])
