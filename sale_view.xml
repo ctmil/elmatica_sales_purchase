@@ -2,6 +2,17 @@
 <openerp>
     <data>
 
+        <record id="confirm_purchase_order_form_v2" model="ir.ui.view">
+            <field name="name">purchase.order.form.confirm.inherit.v2</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="elmatica_purchase_flow.confirm_purchase_order_form"/>
+            <field name="arch" type="xml">
+		<button name="action_confirm_order" position="attributes">
+			<attribute name="invisible">1</attribute>
+		</button>
+	    </field>
+	</record>
+
         <record id="elmatica_product_normal_action_tree" model="ir.actions.act_window">
             <field name="name">Elmatica Products</field>
             <field name="type">ir.actions.act_window</field>
