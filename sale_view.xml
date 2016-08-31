@@ -67,8 +67,8 @@
 						<field name="name" />
 						<field name="order_type" />
 						<field name="date_order" />
-						<!-- field name="partner_id" /-->
-						<field name="amount_total" />
+						<!-- field name="partner_id" />
+						<field name="amount_total" /-->
 					</tree> 
 				</field>
 				<group>
