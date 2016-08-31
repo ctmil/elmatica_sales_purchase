@@ -83,6 +83,17 @@ class purchase_order(models.Model):
 	#		return True
 	#	return False
 
+        @api.multi
+        def name_get(self):
+                res = super(purchase_order,self).name_get()
+                data = []
+                min_qty = 0
+                for po in self:
+                        display_value = po.order_type + '-'  + po.name
+                        data.append((po.id,display_value))
+                return data
+
+
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
 	hub_days = fields.Integer(string='Autoline days',compute=_calc_hub_days20)
 	related_ppo = fields.Many2one('purchase.order',string='Related PPO',compute=_compute_related_ppo)
