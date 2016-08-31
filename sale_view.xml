@@ -53,7 +53,6 @@
               </button>
 	          <field name="date_order" position="after">
         	      <field name="requested_delivery_date" invisible="1" />
-	              <field name="purchase_orders" />
         	  </field>
 		<field name="partner_id" position="after">
 			<field name="original_contact" string="Original Contact" />
