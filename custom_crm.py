@@ -239,6 +239,7 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 				vals['stage_id'] = stage_id[0]
 	    original_name = lead.name
 	    vals['name'] = lead.name + ' - 1 of ' + str(n_qty)
+	    import pdb;pdb.set_trace()
 	    if w.title_action:
 		vals['title_action'] = w.title_action
 	    if w.date_action:

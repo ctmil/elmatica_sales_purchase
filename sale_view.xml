@@ -61,7 +61,8 @@
 			<page string="Purchase Orders" >
 				<!-- attrs="{'invisible':[('state','in',['draft','cancel'])]}" -->
 				<field name="purchase_ids" readonly="1"
-					attrs="{'invisible':[('state','in',['draft','cancel'])]}">
+					attrs="{'invisible':[('state','in',['draft','cancel'])]}" 
+					context="{'form_view_ref':'purchase.purchase_order_form'}">
 					<tree>
 						<field name="name" />
 						<field name="order_type" />
