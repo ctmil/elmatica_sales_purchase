@@ -279,6 +279,8 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		    vals['title_action'] = w.title_action
 	        if w.date_action:
 		    vals['date_action'] = w.date_action
+		if lead.id == temp_lead_id:
+		    vals['name'] = original_name + ' 1 of ' + str(n_qty)
 		lead.write(vals)
 		
 
