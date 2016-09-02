@@ -239,12 +239,11 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 				vals['stage_id'] = stage_id[0]
 	    original_name = lead.name
 	    vals['name'] = lead.name + ' - 1 of ' + str(n_qty)
-	    import pdb;pdb.set_trace()
-	    if w.title_action:
-		vals['title_action'] = w.title_action
-	    if w.date_action:
-		vals['date_action'] = w.date_action
-            lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
+	    #if w.title_action:
+		#vals['title_action'] = w.title_action
+	    #if w.date_action:
+		#vals['date_action'] = w.date_action
+            #lead_obj.write(cr, uid, temp_lead_id, vals, context=context)
 	    temp_lead_ids = [temp_lead_id]
 	    for index in range(n_qty - 1):
 		    name = ''
@@ -264,11 +263,20 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		    return_id = self.pool.get('crm.lead').write(cr,uid,[lead_id],{'name':name})
 		    temp_lead_ids.append(lead_id)
        	    vals.update({'lead_ids': temp_lead_ids, 'user_ids': [w.user_id.id]})
+	    #del vals['title_action']
+	    #del vals['date_action']
             self._convert_opportunity(cr, uid, ids, vals, context=context)
             # self._convert_opportunity(cr, uid, temp_lead_ids, vals, context=context)
        	    for lead in lead_obj.browse(cr, uid, lead_ids, context=context):
                 if lead.partner_id and lead.partner_id.user_id != lead.user_id:
        	            partner_obj.write(cr, uid, [lead.partner_id.id], {'user_id': lead.user_id.id}, context=context)
+		vals = {}
+	        if w.title_action:
+		    vals['title_action'] = w.title_action
+	        if w.date_action:
+		    vals['date_action'] = w.date_action
+		lead.write(vals)
+		
 
         return self.pool.get('crm.lead').redirect_opportunity_view(cr, uid, lead_ids[0], context=context)
 
