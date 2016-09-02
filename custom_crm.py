@@ -270,6 +270,7 @@ class crm_lead2opportunity_partner(osv.osv_memory):
        	    for lead in lead_obj.browse(cr, uid, lead_ids, context=context):
                 if lead.partner_id and lead.partner_id.user_id != lead.user_id:
        	            partner_obj.write(cr, uid, [lead.partner_id.id], {'user_id': lead.user_id.id}, context=context)
+       	    for lead in lead_obj.browse(cr, uid, temp_lead_ids, context=context):
 		vals = {
         	    'section_id': w.section_id.id,
 		    'customer_project': w.customer_project,
