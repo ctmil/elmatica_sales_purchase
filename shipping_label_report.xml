@@ -46,7 +46,7 @@
 								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.name, 300, 30)" /></td></tr>
 								<tr><td colspan="2">(1P) MPN: <span t-field="o.main_product_id.name" /></td></tr>
 								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.name, 300, 30)" /></td></tr>
-								<tr><td colspan="2">(Q) Quantity: <span t-field="o.po_id.units_shipped" /></td></tr>
+								<tr><td colspan="2">(Q) Quantity: <span t-field="o.quantity" /></td></tr>
 								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.po_id.units_shipped, 300, 30)" /></td></tr>
 							        <tr />
 							        <tr>
