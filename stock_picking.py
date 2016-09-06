@@ -92,7 +92,7 @@ class stock_picking(models.Model):
 	if self.move_lines:
 	    for move_line in self.move_lines:
 	        if move_line.product_id.ntty_id != '':
-		    self.customer_part_number = move_line.product_id.default_code
+		    self.customer_part_number = move_line.product_id.product_code
 
     @api.one
     def get_customer_part_name(self):
