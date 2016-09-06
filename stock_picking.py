@@ -108,7 +108,7 @@ class stock_picking(models.Model):
 	    for move_line in self.move_lines:
 		if move_line.product_id.ntty_id != '':
 		    return_value = return_value + move_line.product_qty
-	return return_value
+	self.quantity = return_value
 
     @api.one
     def get_rohs(self):
