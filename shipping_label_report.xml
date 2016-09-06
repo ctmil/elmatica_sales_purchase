@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>	
+		<report id="report_stock_shipping_label_action"
+			string="Shipping Label - Elmatica"
+			model="stock.picking"
+			report_type="qweb-pdf"
+			name="elmatica_wms.report_stock_picking_shipping_label_template"
+			/>
+
+		<template id="report_stock_picking_shipping_label_template">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.internal_layout">
+					    <div class="page">
+						<table class="table-condensed table-bordered">
+							<thead>
+								<td><strong>Ship From</strong></td>
+								<td><strong>Ship To</strong></td>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span t-field="o.po_id.partner_id.name"/></td>
+									<td><span t-field="o.partner_name"/></td>
+								</tr>
+								<tr>
+									<td><span t-field="o.po_id.partner_id.street" /></td>
+									<td><span t-field="o.partner_street"/></td>
+								</tr>
+								<tr>
+									<td><span t-field="o.po_id.partner_id.city" />, <span t-field="o.po_id.partner_id.zip" /></td>
+									<td><span t-field="o.partner_city" />, <span t-field="o.partner_zip" /></td>
+								</tr>
+								<tr>
+									<td><span t-field="o.po_id.partner_id.country_id.name" /></td>
+									<td><span t-field="o.partner_country_name" /></td>
+								</tr>
+								<tr><td colspan="2">(K) Purchase Order Number: <span t-field="o.client_order_ref" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.client_order_ref, 300, 30)" /></td></tr>
+
+								<tr><td colspan="2">Purchase Order Line: <span t-field="o.customer_reference_line" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.customer_reference_line, 300, 30)" /></td></tr>
+								<tr><td colspan="2">(P) Customer Product ID: <span t-field="o.main_product_id.name" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.article_part_number, 300, 30)" /></td></tr>
+								<tr><td colspan="2">(1K) MPO: <span t-field="o.sale_id.name" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.name, 300, 30)" /></td></tr>
+								<tr><td colspan="2">(1P) MPN: <span t-field="o.main_product_id.name" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.name, 300, 30)" /></td></tr>
+								<tr><td colspan="2">(Q) Quantity: <span t-field="o.po_id.units_shipped" /></td></tr>
+								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.po_id.units_shipped, 300, 30)" /></td></tr>
+							        <tr />
+							        <tr>
+						             		<td>
+									   <div t-if="o.main_product_id.product_tmpl_id.ntty_ul">
+										<img class="img img-responsive center-block" 
+											src="/elmatica_wms/static/src/img/ul_image.png"/>
+									   </div>
+									</td>
+					             			<td>
+									   <div t-if="o.main_product_id.product_tmpl_id.ntty_rohs" >
+										<img class="img img-responsive center-block" 
+											src="/elmatica_wms/static/src/img/rohs.jpg"/>
+									   </div>
+									</td>
+								</tr>
+							        <tr>
+								
+									<td colspan="2"><strong>Manufactured in: <span t-field="o.po_id.partner_id.country_id.name" /></strong></td>
+							    </tr>
+							    <tr>
+								<td colspan="2"><strong>Custom Declaration Code: 8534.0000</strong></td>
+							    </tr>
+							</tbody>
+						</table>
+						<!-- br />
+						<p><strong>Package count:<![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]> of <span t-field="o.po_id.collies" /></strong> </p>
+						<p><strong>Quantity in package: </strong></p>
+						<p><strong>Datecode: <span t-field="o.po_id.date_code" /></strong></p>
+						<p><strong>Datecode: <span t-esc="o.po_id.date_code.replace('/','')" /></strong></p -->
+					    </div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+	</data>
+</openerp>

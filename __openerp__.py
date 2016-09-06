@@ -6,6 +6,7 @@
     'data': [
 	'sale_view.xml',
 	'declaration_of_conformity.xml',
+	'shipping_label_report.xml',
 	'po20_report.xml'
     ],
     'demo': [
