@@ -5,7 +5,7 @@
 			string="Packing Slip"
 			model="stock.picking"
 			report_type="qweb-pdf"
-			name="elmatica_wms.report_stock_picking_20_template"
+			name="elmatica_sales_purchase.report_stock_picking_20_template"
 			/>
 
 		<template id="report_stock_picking_20_template">
