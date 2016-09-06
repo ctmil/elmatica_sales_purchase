@@ -26,11 +26,11 @@
 									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.customer_reference_line, 300, 30)" /></td></tr>
 									<tr><td>(P) Customer Product ID: <span t-field="o.main_product_id.product_tmpl_id.name" /></td></tr>
 									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.product_tmpl_id.name, 300, 30)" /></td></tr>
-									<tr><td>(1K) MPO: <span t-field="o.sale_id.name" /></td></tr>
+									<tr><td>(1K) MPO: <span t-field="o.po_id.sale_order_id.name" /></td></tr>
 									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.name, 300, 30)" /></td></tr>
 									<tr><td>(1P) MPN: <span t-field="o.main_product_id.default_code" /></td></tr>
 									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.default_code, 300, 30)" /></td></tr>
-									<tr><td>(Q) Quantity: <span t-field="o.po_id.units_shipped" /></td></tr>
+									<tr><td>(Q) Quantity: <span t-field="o.quantity" /></td></tr>
 									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.po_id.units_shipped, 300, 30)" /></td></tr>
 								</tbody>
 							</table></td>
@@ -44,20 +44,20 @@
 						    </tr>
 							<tr>
 								<td><span t-field="o.company_id.name"/></td>
-								<td><span t-field="o.partner_name"/></td>
+								<td><span t-field="o.po_id.sale_order_id.partner_id.name"/></td>
 							</tr>
 							<tr><td>c/o</td><td /></tr>
 							<tr><td><span t-field="o.po_id.partner_id.name"/></td><td /></tr>
 							<tr>
 								<td><span t-field="o.po_id.partner_id.street"/></td>
-								<td><span t-field="o.partner_street"/></td>
+								<td><span t-field="o.po_id.sale_order_id.partner_id.street"/></td>
 							</tr>
 							<tr><td><span t-field="o.po_id.partner_id.city"/></td>
-							    <td><span t-field="o.partner_city"/></td></tr>
+							    <td><span t-field="o.po_id.sale_order_id.city"/></td></tr>
 							<tr><td><span t-field="o.po_id.partner_id.country_id.name"/></td>
-							    <td><span t-field="o.partner_country_name"/></td></tr>
+							    <td><span t-field="o.po_id.sale_order_id.partner_id.name"/></td></tr>
 							<tr><td />
-							    <td><span t-field="o.partner_phone"/></td></tr>
+							    <td><span t-field="o.po_id.sale_order_id.partner_id.phone"/></td></tr>
 						</table>
 						<!-- br / -->
 						<table class="table table-condensed" >
