@@ -56,12 +56,12 @@ https://github.com/odoo/odoo/issues/4359
                         <div class="btn row col-xs-12"/>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer:</div>
-                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_id.name" />
+                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_id.partner_id.name" />
                         <!-- div class="col-xs-4 text-left" t-esc="get_customer_name(o)" / -->
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer PO:</div>
-                        <div class="col-xs-4 text-left" t-esc="o.po_id.partner_id.name" />
+                        <div class="col-xs-4 text-left" t-esc="o.po_id.partner_id.client_order_ref" />
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer Part Number:</div>
