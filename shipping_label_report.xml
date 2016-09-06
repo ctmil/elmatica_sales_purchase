@@ -21,21 +21,21 @@
 							<tbody>
 								<tr>
 									<td><span t-field="o.po_id.partner_id.name"/></td>
-									<td><span t-field="o.partner_name"/></td>
+									<td><span t-field="o.po_id.sale_order_id.partner_id.name"/></td>
 								</tr>
 								<tr>
 									<td><span t-field="o.po_id.partner_id.street" /></td>
-									<td><span t-field="o.partner_street"/></td>
+									<td><span t-field="o.po_id.sale_order_id.partner_id.street"/></td>
 								</tr>
 								<tr>
 									<td><span t-field="o.po_id.partner_id.city" />, <span t-field="o.po_id.partner_id.zip" /></td>
-									<td><span t-field="o.partner_city" />, <span t-field="o.partner_zip" /></td>
+									<td><span t-field="o.po_id.sale_order_id.partner_id.city" />, <span t-field="o.po_id.sale_order_id.partner_id.zip" /></td>
 								</tr>
 								<tr>
 									<td><span t-field="o.po_id.partner_id.country_id.name" /></td>
-									<td><span t-field="o.partner_country_name" /></td>
+									<td><span t-field="o.po_id.sale_order_id.partner_id.country_id.name" /></td>
 								</tr>
-								<tr><td colspan="2">(K) Purchase Order Number: <span t-field="o.client_order_ref" /></td></tr>
+								<tr><td colspan="2">(K) Purchase Order Number: <span t-field="o.po_id.sale_order_id.client_order_ref" /></td></tr>
 								<tr><td colspan="2"><img class="img img-responsive center-block" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.client_order_ref, 300, 30)" /></td></tr>
 
 								<tr><td colspan="2">Purchase Order Line: <span t-field="o.customer_reference_line" /></td></tr>
