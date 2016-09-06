@@ -66,7 +66,12 @@ https://github.com/odoo/odoo/issues/4359
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer PO:</div>
-                        <div class="col-xs-4 text-left" t-esc="o.po_id.partner_id.client_order_ref" />
+			<div t-if="o.po_id.sale_order_id">
+	                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_order_id.client_order_ref" />
+			</div>
+			<div t-if="not o.po_id.sale_order_id">
+				N/A
+			</div>
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer Part Number:</div>
