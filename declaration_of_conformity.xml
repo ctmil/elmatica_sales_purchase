@@ -93,7 +93,7 @@ https://github.com/odoo/odoo/issues/4359
                     <div class="btn row col-xs-12"/>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Elmatica Order ref:</div>
-                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_id.name" />
+                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_order_id.name" />
                     </div>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Elmatica Part Number:</div>

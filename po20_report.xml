@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>	
+		<report id="report_stock_picking_20_action"
+			string="Packing Slip"
+			model="stock.picking"
+			report_type="qweb-pdf"
+			name="elmatica_wms.report_stock_picking_20_template"
+			/>
+
+		<template id="report_stock_picking_20_template">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.internal_layout">
+					    <div class="page">
+						<table class="table table-condensed">
+						    <tr>
+							<td><strong>ORDER <span t-field="o.po_id.sale_order_id.name"/></strong></td>
+							<td />
+							<td rowspan="12"><table class="table table-condensed table-bordered text-center">
+								<tbody>
+									<tr><td>(K) Purchase Order Number: <span t-field="o.po_id.sale_order_id.client_order_ref" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128',o.client_order_ref, 300, 30)" /></td></tr>
+
+									<tr><td>Purchase Order Line: <span t-field="o.customer_reference_line" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.customer_reference_line, 300, 30)" /></td></tr>
+									<tr><td>(P) Customer Product ID: <span t-field="o.main_product_id.product_tmpl_id.name" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.product_tmpl_id.name, 300, 30)" /></td></tr>
+									<tr><td>(1K) MPO: <span t-field="o.sale_id.name" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.sale_id.name, 300, 30)" /></td></tr>
+									<tr><td>(1P) MPN: <span t-field="o.main_product_id.default_code" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.main_product_id.default_code, 300, 30)" /></td></tr>
+									<tr><td>(Q) Quantity: <span t-field="o.po_id.units_shipped" /></td></tr>
+									<tr><td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.po_id.units_shipped, 300, 30)" /></td></tr>
+								</tbody>
+							</table></td>
+						    </tr>
+						    <tr>
+							<td>Package Slip</td>
+						    </tr>
+						    <tr>
+							<strong><td>From:</td>
+							<td>To:</td></strong>
+						    </tr>
+							<tr>
+								<td><span t-field="o.company_id.name"/></td>
+								<td><span t-field="o.partner_name"/></td>
+							</tr>
+							<tr><td>c/o</td><td /></tr>
+							<tr><td><span t-field="o.po_id.partner_id.name"/></td><td /></tr>
+							<tr>
+								<td><span t-field="o.po_id.partner_id.street"/></td>
+								<td><span t-field="o.partner_street"/></td>
+							</tr>
+							<tr><td><span t-field="o.po_id.partner_id.city"/></td>
+							    <td><span t-field="o.partner_city"/></td></tr>
+							<tr><td><span t-field="o.po_id.partner_id.country_id.name"/></td>
+							    <td><span t-field="o.partner_country_name"/></td></tr>
+							<tr><td />
+							    <td><span t-field="o.partner_phone"/></td></tr>
+						</table>
+						<!-- br / -->
+						<table class="table table-condensed" >
+							<thead>
+								<tr><th colspan="4">Delivered:</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Quantity:</td>
+									<td>Part#:</td>
+									<td>Part Name:</td>
+									<td>Elmatica ID:</td>
+								</tr>
+								<tr t-foreach="o.move_lines[:1]" t-as="l">
+		                                                       <td>
+										<strong><span t-field="o.po_id.units_shipped" /></strong>
+									</td>
+		                                                        <td>
+										<strong><span t-field="o.main_product_id.product_tmpl_id.name" /></strong>
+									</td>
+									<td>
+										<strong><span t-field="o.main_product_id.product_tmpl_id.name" /></strong>
+									</td>
+									<td>
+										<strong><span t-field="o.main_product_id.default_code" /></strong>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table table-condensed table-bordered">
+							<tbody>
+							    <tr>
+					             		<td rowspan="3"><img class="img img-responsive center-block" 
+									src="/elmatica_wms/static/src/img/elmatica_logo.png"
+									width="50" height="30"/></td>
+								<td><strong>Manufactured in: <span t-field="o.po_id.partner_id.country_id.name" /></strong></td>
+					             		<td>
+								    <div t-if="o.main_product_id.product_tmpl_id.ntty_ul">
+									<img class="img img-responsive center-block" 
+										src="/elmatica_wms/static/src/img/ul_image.png"
+										width="50" height="30"/>
+								    </div>
+								</td>
+					             		<td>
+								    <div t-if="o.main_product_id.product_tmpl_id.ntty_rohs">
+									<img class="img img-responsive center-block" 
+										src="/elmatica_wms/static/src/img/rohs.jpg"
+										width="50" height="30"/>
+								    </div>
+								</td>
+							    </tr>
+							    <tr>
+								<td><strong>Custom Declaration Code: 8534.0000</strong></td>
+					             		<td />
+					             		<td />
+							    </tr>
+							    <tr>
+								<td><strong>Package Content: Printed Circuit Boards (PCB)</strong></td>
+								<td />
+								<td />
+							    </tr>
+							</tbody>
+						</table>
+					    </div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+	</data>
+</openerp>
