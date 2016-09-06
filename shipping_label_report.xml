@@ -5,7 +5,7 @@
 			string="Shipping Label - Elmatica"
 			model="stock.picking"
 			report_type="qweb-pdf"
-			name="elmatica_wms.report_stock_picking_shipping_label_template"
+			name="elmatica_sales_purchase.report_stock_picking_shipping_label_template"
 			/>
 
 		<template id="report_stock_picking_shipping_label_template">
