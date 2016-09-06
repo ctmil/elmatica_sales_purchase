@@ -56,10 +56,10 @@ https://github.com/odoo/odoo/issues/4359
                         <div class="btn row col-xs-12"/>
                     <div class="btn row col-xs-10">
                         <div class="col-xs-4 text-right">Customer:</div>
-			<div t-if="o.po_id.sale_id">
-	                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_id.partner_id.name" />
+			<div t-if="o.po_id.sale_order_id">
+	                        <div class="col-xs-4 text-left" t-esc="o.po_id.sale_order_id.partner_id.name" />
 			</div>
-			<div t-if="not o.po_id.sale_id">
+			<div t-if="not o.po_id.sale_order_id">
 				N/A
 			</div>
                         <!-- div class="col-xs-4 text-left" t-esc="get_customer_name(o)" / -->
