@@ -134,6 +134,18 @@
             </field>
 	</record>
 
+        <act_window id="action_country_shipping_days"
+                name="Shipping Days"
+                res_model="elmatica_purchase_flow.shipping_days"
+                multi="False"/>
+
+        <menuitem id="menu_country_shipping_days"
+                name="Shipping Days"
+                parent="elmatica_sales_customizations.menu_freight"
+                sequence="100" 
+                action="action_country_shipping_days"/>
+
+
         <!-- record model="ir.ui.view" id="elmatica_purchase_order_adds_group">
             <field name="name">elmatica.adds.minimum.planned.date</field>
             <field name="model">purchase.order</field>
