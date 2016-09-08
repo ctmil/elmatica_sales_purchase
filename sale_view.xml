@@ -134,6 +134,19 @@
             </field>
 	</record>
 
+        <record id="view_shipping_days_tree" model="ir.ui.view">
+            <field name="name">shipping_days.tree</field>
+            <field name="model">elmatica_purchase_flow.shipping_days</field>
+            <field name="sequence">100</field>
+            <field name="arch" type="xml">
+                <tree string="Shipping days table">
+                    <field name="to_country" string="Country"/>
+                    <field name="shipping_days" string="Shipping Days"/>
+                </tree>
+            </field>
+        </record>
+
+
         <act_window id="action_country_shipping_days"
                 name="Shipping Days"
                 res_model="elmatica_purchase_flow.shipping_days"
