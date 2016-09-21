@@ -129,7 +129,7 @@ class stock_picking(models.Model):
 				if sale_line.product_id.is_pack:
 					for product_pack in sale_line.product_id.wk_product_pack:
 						if product_pack.product_name.id == move_line.product_id.id:
-						        return_value = return_value + (sale_line.unit_cost * sale_line.product_uom_qty)
+						        return_value = return_value + (sale_line.unit_cost * move_line.product_uom_qty)
 	self.dhl_declared_value = return_value
 
     customer_part_number = fields.Char('Customer Part Number',compute=get_customer_part_number)
