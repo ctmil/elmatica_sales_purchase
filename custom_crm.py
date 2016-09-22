@@ -206,22 +206,30 @@ class crm_lead2opportunity_partner(osv.osv_memory):
             lead_ids = context.get('active_ids', [])
 	    temp_lead_id = lead_ids[0]
 	    lead = lead_obj.browse(cr,uid,temp_lead_id)
+	    technical_contact = None
+	    procurement_contact = None
 	    if lead.partner_id.is_company:
 		if lead.partner_id.technical_contact:
 			vals['technical_contact'] = lead.partner_id.technical_contact.id
+			technical_contact = lead.partner_id.technical_contact.id
 		if lead.partner_id.procurement_contact:
 			vals['procurement_contact'] = lead.partner_id.procurement_contact.id
+			procurement_contact = lead.partner_id.procurement_contact.id
 	    else:
 		if lead.partner_id.parent_id.technical_contact:
 			vals['technical_contact'] = lead.partner_id.parent_id.technical_contact.id
+			technical_contact = lead.partner_id.parent_id.technical_contact.id
 		else:
 	    		if lead.partner_id.parent_id.technical_contact:
 				vals['technical_contact'] = lead.partner_id.parent_id.technical_contact.id
+				technical_contact = lead.partner_id.parent_id.technical_contact.id
 		if lead.partner_id.parent_id.procurement_contact:
 			vals['procurement_contact'] = lead.partner_id.parent_id.procurement_contact.id
+			procurement_contact = lead.partner_id.parent_id.procurement_contact.id
 		else:
 		    	if lead.partner_id.parent_id.procurement_contact:
 				vals['procurement_contact'] = lead.partner_id.parent_id.procurement_contact.id
+				procurement_contact = lead.partner_id.parent_id.procurement_contact.id
 	    if lead.product_name:
 		if lead.product_name.product_tmpl_id.ntty_id:
 			vals['ntty_id'] = lead.product_name.product_tmpl_id.ntty_id
@@ -274,6 +282,8 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		vals = {
         	    'section_id': w.section_id.id,
 		    'customer_project': w.customer_project,
+		    'technical_contact': technical_contact,
+		    'procurement_contact': procurement_contact
         	}
 	        if w.title_action:
 		    vals['title_action'] = w.title_action
