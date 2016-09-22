@@ -212,13 +212,13 @@ class crm_lead2opportunity_partner(osv.osv_memory):
 		if lead.partner_id.procurement_contact:
 			vals['procurement_contact'] = lead.partner_id.procurement_contact.id
 	    else:
-		if lead.partner_id.technical_contact:
-			vals['technical_contact'] = lead.partner_id.technical_contact.id
+		if lead.partner_id.parent_id.technical_contact:
+			vals['technical_contact'] = lead.partner_id.parent_id.technical_contact.id
 		else:
 	    		if lead.partner_id.parent_id.technical_contact:
 				vals['technical_contact'] = lead.partner_id.parent_id.technical_contact.id
-		if lead.partner_id.procurement_contact:
-			vals['procurement_contact'] = lead.partner_id.procurement_contact.id
+		if lead.partner_id.parent_id.procurement_contact:
+			vals['procurement_contact'] = lead.partner_id.parent_id.procurement_contact.id
 		else:
 		    	if lead.partner_id.parent_id.procurement_contact:
 				vals['procurement_contact'] = lead.partner_id.parent_id.procurement_contact.id
