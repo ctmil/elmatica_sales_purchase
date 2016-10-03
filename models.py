@@ -74,7 +74,7 @@ class product_template(models.Model):
 	def action_view_purchases(self, cr, uid, ids, context=None):
 		products = self._get_products(cr, uid, ids, context=context)
 		result = self._get_act_window_dict(cr, uid,\
-			 'elmatica_sales_purchase.purchase.action_purchase_line_product_tree', context=context)
+			 'elmatica_sales_purchase.action_purchase_line_product_tree', context=context)
 		result['domain'] = "[('product_id','in',[" + ','.join(map(str, products)) + "])]"
 		return result
 
