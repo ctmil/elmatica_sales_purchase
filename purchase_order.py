@@ -83,15 +83,15 @@ class purchase_order(models.Model):
 	#		return True
 	#	return False
 
-        @api.multi
-        def name_get(self):
-                res = super(purchase_order,self).name_get()
-                data = []
-                min_qty = 0
-                for po in self:
-                        display_value = po.order_type + '-'  + po.name
-                        data.append((po.id,display_value))
-                return data
+        #@api.multi
+        #def name_get(self):
+        #        res = super(purchase_order,self).name_get()
+        #        data = []
+        #        min_qty = 0
+        #        for po in self:
+        #                display_value = po.order_type + '-'  + po.name
+        #                data.append((po.id,display_value))
+        #        return data
 
 
 	sale_order_id = fields.Many2one('sale.order',string='Origin SO')
