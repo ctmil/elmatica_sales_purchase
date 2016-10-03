@@ -173,6 +173,36 @@
             </field>
 	</record -->
 
+        <record id="elmatica_purchase_order_line_tree" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines" create="false">
+                    <field name="order_id"/>
+                    <field name="name"/>
+                    <field name="partner_id" string="Supplier" />
+                    <field name="product_id"/>
+                    <field name="price_unit"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom" groups="product.group_uom"/>
+                    <field name="price_subtotal"/>
+                    <field name="date_planned"  widget="date" width="135"/>
+                    <field name="state" invisible="1"/>
+                    <field name="invoiced" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="action_purchase_line_product_tree">
+            <field name="context">{}</field><!-- force empty -->
+            <field name="name">Purchases</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_id" ref="elmatica_purchase_order_line_tree"/>
+        </record>
+
+
     </data>
 </openerp>
 

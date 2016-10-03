@@ -67,3 +67,24 @@ class sale_order_line(models.Model):
 	shipping_days = fields.Integer(string='Shipping days',compute=_compute_shipping_days)
         calculated_leadtime = fields.Integer(string='Calculated Leadtime',compute=_compute_calculated_leadtime_20)
 
+
+class product_template(models.Model):
+	_inherit = 'product.template'
+
+	def action_view_purchases(self, cr, uid, ids, context=None):
+		products = self._get_products(cr, uid, ids, context=context)
+		result = self._get_act_window_dict(cr, uid,\
+			 'elmatica_sales_purchase.purchase.action_purchase_line_product_tree', context=context)
+		result['domain'] = "[('product_id','in',[" + ','.join(map(str, products)) + "])]"
+		return result
+
+class product_product(models.Model):
+	_inherit = 'product.product'
+
+	def action_view_purchases(self, cr, uid, ids, context=None):
+        	if isinstance(ids, (int, long)):
+			ids = [ids]
+		result = self.pool['product.template']._get_act_window_dict(cr, uid,\
+				 'elmatica_sales_purchase.action_purchase_line_product_tree', context=context)
+		result['domain'] = "[('product_id','in',[" + ','.join(map(str, ids)) + "])]"
+		return result
